@@ -1,0 +1,31 @@
+//
+//  ASScrollView.h
+//  ASVirtualHardDisk
+//
+//  Created by  dai yunxing on 11-9-26.
+//  Copyright 2011 AlphaStudio. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "ASScrollViewDelegate.h"
+
+/*!
+    @class
+    @abstract    define a scrollView to rewrite touchBegain method
+    @discussion  <#(comprehensive description)#>
+*/
+@interface ASScrollView : UIScrollView{
+@private    
+	//record the mark to show or hide the navigationBar
+	
+	//delegate to excute show or hide method
+	id<ASScrollViewDelegate> asDelegate;
+    BOOL isAppear;
+}
+
+@property (nonatomic, assign) id asDelegate;
+@property BOOL isAppear;
+
+- (void) dealloc;
+
+@end

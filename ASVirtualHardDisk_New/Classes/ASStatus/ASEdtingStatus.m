@@ -1,0 +1,191 @@
+//
+//  ASEdtingStatus.m
+//  ASVirtualHardDisk
+//
+//  Created by dai yunxing on 11-10-23.
+//  Copyright 2011年 AlphaStudio. All rights reserved.
+//
+
+#import "ASDataObject.h"
+#import "ASDeclare.h"
+#import "ASDirectoryEx.h"
+#import "ASEdtingStatus.h"
+#import "ASFileEx.h"
+#import "ASFileListViewController.h"
+#import "ASStatusManager.h"
+#import "ASTableViewCell.h"
+#import "ASBadgeView.h"
+#import "ASImageResize.h"
+#import "ASLocalDefine.h"
+#import "ASToolBarEdit.h"
+
+@implementation ASEdtingStatus
+
+static const CGFloat kToolBarIconSize = 24.0f;
+
+#pragma mark -
+#pragma mark ASStatus Method
+//------------------------------------------------------------------------------
+// - (void) handleTapGesture:(UITapGestureRecognizer *) gestureRecognizer
+//------------------------------------------------------------------------------
+- (void) handleTapGesture:(UITapGestureRecognizer *) gestureRecognizer
+{
+    NSLog(@"EditingStatus -- %s",__func__);
+}
+
+//------------------------------------------------------------------------------
+// - (void) handleForToolBar
+//------------------------------------------------------------------------------
+- (void) handleForToolBar
+{
+    viewController.navigationController.toolbar.clipsToBounds = NO;
+
+    [toolbar showToolBar];
+    
+    if(viewController.numButton.hidden == YES)
+    {
+        /*
+         deleteItem.enabled = 0;
+         copyItem.enabled = 0;
+         moveItem.enabled = 0;
+         zipItem.enabled = 0;
+         emailItem.enabled = 0;
+         */
+        [toolbar showVirtualToolBar];
+    }
+    
+}
+
+//------------------------------------------------------------------------------
+// - (void) handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer
+//------------------------------------------------------------------------------
+- (void) handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    
+}
+
+//------------------------------------------------------------------------------
+// - (void) handleDidDeselectRowAtIndexPath:(NSIndexPath *)aIndexPath
+//------------------------------------------------------------------------------
+- (void) handleDidDeselectRowAtIndexPath:(NSIndexPath *)aIndexPath
+{
+    [viewController.selectedFiles removeObjectForKey:aIndexPath];
+	if ([viewController.selectedFiles count] < [viewController.filesInCurrentDocument count]) 
+	{
+		ASDeclare *declare = [ASDeclare singletonASDeclare];
+		[viewController.navigationItem.leftBarButtonItem setTitle:declare.fileListSelectedAll];
+	}
+    if(0 != [viewController.selectedFiles count])
+    {
+        viewController.numButton.hidden = NO;
+        [viewController.numButton 
+         setBadgeString:[NSString stringWithFormat:@"%d",
+                         [viewController.selectedFiles count]] 
+         ];
+        
+    }
+    else
+    {
+        viewController.numButton.hidden = YES;
+    }
+    if(viewController.numButton.hidden == NO)
+    {
+        [toolbar showEntryToolBar];
+        
+    }
+    if(viewController.numButton.hidden == YES)
+    {
+        /*
+         deleteItem.enabled = 0;
+         copyItem.enabled = 0;
+         moveItem.enabled = 0;
+         zipItem.enabled = 0;
+         emailItem.enabled = 0;
+         */
+        [toolbar showVirtualToolBar];
+    }
+    
+}
+
+//------------------------------------------------------------------------------
+// - (void) handleAccessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)aIndexPath
+//------------------------------------------------------------------------------
+- (void) handleAccessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)aIndexPath
+{
+    NSLog(@"%s",__func__);
+    ASTableViewCell *cell = (ASTableViewCell*)
+    [viewController.documentTableView cellForRowAtIndexPath:aIndexPath];
+    cell.mainText.enabled = YES;
+    [cell.mainText becomeFirstResponder];
+
+    if(NO == cell.mainText.editing)
+    {
+        cell.mainText.enabled = YES;
+        [cell.mainText becomeFirstResponder];
+    }
+    [viewController.statusManager changeToEdtingRenameStatus];
+}
+
+//------------------------------------------------------------------------------
+// - (void) handleDidSelectRowAtIndexPath:(NSIndexPath *)aIndexPath
+//------------------------------------------------------------------------------
+- (void) handleDidSelectRowAtIndexPath:(NSIndexPath *)aIndexPath
+{
+    id<ASDataObject> dataObj = [viewController.filesInCurrentDocument 
+                                objectAtIndex:[aIndexPath row]];
+    [viewController.selectedFiles setObject:dataObj forKey:aIndexPath];
+	if ([viewController.selectedFiles count] == [viewController.filesInCurrentDocument count]) 
+	{
+		ASDeclare *declare = [ASDeclare singletonASDeclare];
+		[viewController.navigationItem.leftBarButtonItem setTitle:declare.fileListSelectedCancel];
+	}
+    if(0 != [viewController.selectedFiles count])
+    {
+        viewController.numButton.hidden = NO;
+        [viewController.numButton setBadgeString:[NSString stringWithFormat:@"%d",
+                                                  [viewController.selectedFiles count]] 
+         ];
+    }
+    else
+    {
+        viewController.numButton.hidden = YES;
+    }
+    if(viewController.numButton.hidden == NO)
+    {
+        [toolbar showEntryToolBar];
+    }
+    if(viewController.numButton.hidden == YES)
+    {
+        /*
+         deleteItem.enabled = 0;
+         copyItem.enabled = 0;
+         moveItem.enabled = 0;
+         zipItem.enabled = 0;
+         emailItem.enabled = 0;
+         */
+        [toolbar showVirtualToolBar];
+    }
+}
+
+#pragma mark -
+#pragma mark life cycle
+- (id) initWithViewController:(ASFileListViewController *) aViewController
+{
+    self = [super init];
+    if(self)
+    {
+        viewController = aViewController;
+        toolbar = [[ASToolBarEdit alloc] initWithViewController:aViewController];
+    }
+    return self;
+}
+
+- (void) dealloc
+{
+    [toolbar release];
+    [super dealloc];
+}
+
+
+
+@end

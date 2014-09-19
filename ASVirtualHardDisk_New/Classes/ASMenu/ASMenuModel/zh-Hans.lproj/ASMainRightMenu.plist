@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>arrowImage</key>
+	<string>dirbtn.png</string>
+	<key>backgroundImage</key>
+	<string>bg_perferences.png</string>
+	<key>item</key>
+	<array>
+		<string>首选项</string>
+	</array>
+	<key>itemIcon</key>
+	<array>
+		<string>setting.png</string>
+	</array>
+	<key>selectors</key>
+	<dict>
+		<key>二维码</key>
+		<string>scanButtonTapped</string>
+		<key>浏览器</key>
+		<string>showWebView</string>
+		<key>首选项</key>
+		<string>showPreferencesView</string>
+	</dict>
+</dict>
+</plist>

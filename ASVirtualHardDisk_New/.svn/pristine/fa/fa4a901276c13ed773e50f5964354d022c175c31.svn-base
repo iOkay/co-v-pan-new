@@ -1,0 +1,23 @@
+//
+//  ASVerifyView.h
+//  ASVirtualHardDisk
+//
+//  Created by Yunxing.D on 11-8-28.
+//  Copyright 2011 AlphaStudio. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface ASVerifyView : UIView {
+
+}
+
+/*
+ @function   - (IBAction) textFieldDidEditing:(id)sender
+ @abstract   respond to the textFieldDidEndEditing Event
+ @param      (id)sender - textField
+ @result     IBAction
+ */
+- (IBAction)textFieldDidEndEditing:(id)sender;
+@end

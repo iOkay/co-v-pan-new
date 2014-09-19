@@ -1,0 +1,431 @@
+//
+//  ASMediaPlayerViewController.m
+//  MediaPlayer
+//
+//  Created by senso senso on 10-11-30.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+#import <Foundation/Foundation.h>
+#import "ASMediaPlayerViewController.h"
+#import "ASFileEx.h"
+#import "ASDirectoryEx.h"
+#import <AVFoundation/AVFoundation.h>
+#import "ASLocalDefine.h"
+
+#define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define kMainDirctory localeString(@"Local");
+@implementation ASMediaPlayerViewController
+@synthesize recorder;
+@synthesize recorderFilePath;
+@synthesize timerOfPlay;
+@synthesize timerOfRecord;
+@synthesize record;
+@synthesize currentRecord;
+@synthesize nameFiled;
+@synthesize reRecord;
+@synthesize bgButton;
+@synthesize playButton;
+@synthesize audioPlayer;
+@synthesize currentDirectory;
+@synthesize tap;
+@synthesize savePath;
+@synthesize selectAll;
+@synthesize navgationItem;
+@synthesize navigationBar;
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+//------------------------------------------------------------------------------
+// -(IBAction)editEnd
+//------------------------------------------------------------------------------
+- (IBAction)editBegin
+{
+    [selectAll removeFromSuperview];
+    if ([nameFiled.text isEqualToString:NSLocalizedString(KNameFile, nil)] == YES)
+        self.nameFiled.clearsOnBeginEditing = YES;
+    else
+        self.nameFiled.clearsOnBeginEditing = NO;
+    [nameFiled becomeFirstResponder];
+}
+//------------------------------------------------------------------------------
+// -(IBAction)editEnd
+//------------------------------------------------------------------------------
+- (IBAction)editEnd
+{
+    if ([nameFiled.text isEqualToString:@""]) {
+        nameFiled.text=NSLocalizedString(KNameFile, nil);
+    }
+    [self.view addSubview:selectAll];
+    [nameFiled resignFirstResponder];
+}
+
+//------------------------------------------------------------------------------
+// -(void) viewDidLoad
+//------------------------------------------------------------------------------
+- (void)viewDidLoad {
+	[super viewDidLoad];
+    if (self.interfaceOrientation==UIInterfaceOrientationPortrait||self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)
+    {
+        navigationBar.frame = CGRectMake(0, 0, 320, 44);
+    }
+    else
+    {
+        navigationBar.frame = CGRectMake(0, 0, 460, 32);     
+    }
+    nameFiled.text = NSLocalizedString(KNameFile, nil);
+    tap.text = NSLocalizedString(KTap, nil);
+    
+    
+    navgationItem.title = NSLocalizedString(KRecorder, nil);
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]
+                          initWithTitle:NSLocalizedString(KCancel, nil)
+                          style:UIBarButtonItemStylePlain
+                          target:self
+                          action:@selector(unuseTheRecord)]; 
+    navgationItem.leftBarButtonItem = leftBarButtonItem;
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc]
+                           initWithTitle:NSLocalizedString(KUse, nil)
+                           style:UIBarButtonItemStylePlain
+                           target:self
+                           action:@selector(useTheRecord)];
+    navgationItem.rightBarButtonItem = rightBarButtonItem;
+    navgationItem.rightBarButtonItem.enabled = NO;
+    
+    [record addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
+    [record setBackgroundImage:[UIImage imageNamed:@"begin.png"] forState:UIControlStateNormal]; 
+
+    reRecord.enabled = NO;
+    playButton.enabled = NO;
+    currentRecord.text = @"00:00:00";
+    
+    
+    CGRect rect = CGRectMake(44, 31, 233, 37);
+	selectAll = [[UIButton alloc]initWithFrame:rect];
+    [selectAll addTarget:self action:@selector(editBegin) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:selectAll];
+    [leftBarButtonItem release];
+    [rightBarButtonItem release];
+}
+- (void)changeNavigationBarColorWithColor:(UIColor *)color
+{
+    navigationBar.tintColor = color;
+}
+
+//------------------------------------------------------------------------------
+// -(void)useTheRecord
+//------------------------------------------------------------------------------
+- (void)useTheRecord
+{
+    [recorder stop];
+    NSLog(@"2222\n%@",currentDirectory);
+
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if ([currentDirectory isEqualToString:@""] == YES) {
+        if ([nameFiled.text isEqualToString:NSLocalizedString(KNameFile, nil)] == YES) {
+            savePath = [[NSString alloc] initWithFormat:@"%@/%@",DOCUMENTS_FOLDER,[recorderFilePath lastPathComponent]];
+        }else{
+            savePath = [[NSString alloc] initWithFormat:@"%@/%@.caf",DOCUMENTS_FOLDER,nameFiled.text];
+        }
+    }else{
+        if ([nameFiled.text isEqualToString:NSLocalizedString(KNameFile, nil)] == YES) {
+            savePath = [[NSString alloc] initWithFormat:@"%@%@/%@",DOCUMENTS_FOLDER,currentDirectory,[recorderFilePath lastPathComponent]];
+        }else{
+            savePath = [[NSString alloc] initWithFormat:@"%@%@/%@.caf",DOCUMENTS_FOLDER,currentDirectory,nameFiled.text];
+        }
+    }
+    [fm moveItemAtPath:recorderFilePath toPath:savePath error:nil];
+    
+    [self dismissModalViewControllerAnimated:YES];
+
+}
+
+- (void) returnToFileList
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+//------------------------------------------------------------------------------
+// -(void) unuseTheRecord
+//------------------------------------------------------------------------------
+- (void)unuseTheRecord
+{
+    [self stopRecording];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:recorderFilePath error:nil];
+//    [self dismissModalViewControllerAnimated:YES];
+    [self performSelector:@selector(returnToFileList) withObject:nil afterDelay:0.1f];
+}
+
+//------------------------------------------------------------------------------
+// -(IBAction)reRecordAudio
+//------------------------------------------------------------------------------
+- (IBAction)reRecordAudio:(id)sender
+{
+    [self stopRecording];
+    record.enabled = YES;
+    playButton.enabled = NO;
+    navgationItem.rightBarButtonItem.enabled = NO;
+    currentRecord.text = @"00:00:00";
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:recorderFilePath error:nil];
+}
+
+//------------------------------------------------------------------------------
+// - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+//------------------------------------------------------------------------------
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return YES;
+}
+
+//------------------------------------------------------------------------------
+// - (void)didReceiveMemoryWarning
+//------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+//------------------------------------------------------------------------------
+// - (void)setTimerRecord
+//------------------------------------------------------------------------------
+- (void)setTimerRecord
+{
+    countOfRecord++;
+    NSString *recordTime = [[NSString alloc] initWithFormat:@"%02i:%02i:%02i"
+                            ,(countOfRecord/3600),(countOfRecord%3600)/60,(countOfRecord%60)];
+    currentRecord.text = recordTime;
+    [recordTime release];
+}
+
+//------------------------------------------------------------------------------
+// - (void)setTimerRecord
+//------------------------------------------------------------------------------
+- (void)setTimerPlay
+{
+    countOfPlay++;
+    NSString *recordTime = [[NSString alloc] initWithFormat:@"%02i:%02i:%02i"
+                            ,(countOfPlay/3600),(countOfPlay%3600)/60,(countOfPlay%60)];
+    currentRecord.text = recordTime;
+    [recordTime release];
+    if (countOfPlay == countOfRecord) {
+        [self playOrPauseRecording];
+        countOfPlay = 0;
+        isPlayed = NO;
+    }
+}
+
+//------------------------------------------------------------------------------
+// - (void)startRecordTimer 
+//------------------------------------------------------------------------------
+- (void)startRecordTimer
+{
+    self.timerOfRecord = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setTimerRecord) userInfo:nil repeats:YES];
+    
+}
+
+//------------------------------------------------------------------------------
+// - (void)startPlayTimer 
+//------------------------------------------------------------------------------
+- (void)startPlayTimer
+{
+    self.timerOfPlay = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setTimerPlay) userInfo:nil repeats:YES];
+    
+}
+
+//------------------------------------------------------------------------------
+//- (void) pauseRecording
+//------------------------------------------------------------------------------
+- (void) pauseRecording
+{
+    [timerOfRecord invalidate];
+    [recorder pause];
+    [record removeTarget:self action:@selector(pauseRecording) forControlEvents:UIControlEventTouchUpInside];
+    [record addTarget:self action:@selector(contimueRecording) forControlEvents:UIControlEventTouchUpInside];
+	[record setBackgroundImage:[UIImage imageNamed:@"begin.png"] forState:UIControlStateNormal];
+    navgationItem.rightBarButtonItem.enabled = YES;
+    playButton.enabled = YES;
+}
+
+//------------------------------------------------------------------------------
+// - (void) contimueRecording
+//------------------------------------------------------------------------------
+- (void) contimueRecording
+{
+    playButton.enabled = NO;
+    [self startRecordTimer];
+    [recorder record];
+    navgationItem.rightBarButtonItem.enabled = NO;
+    [record removeTarget:self action:@selector(contimueRecording) forControlEvents:UIControlEventTouchUpInside];
+    [record addTarget:self action:@selector(pauseRecording) forControlEvents:UIControlEventTouchUpInside];
+    [record setBackgroundImage:[UIImage imageNamed:@"stopp.png"] forState:UIControlStateNormal];
+}
+
+//------------------------------------------------------------------------------
+// -(void)startRecord
+//------------------------------------------------------------------------------
+- (void) startRecording
+{    
+    reRecord.enabled = YES;
+    [record removeTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];
+    [record addTarget:self action:@selector(pauseRecording) forControlEvents:UIControlEventTouchUpInside];	
+	[record setBackgroundImage:[UIImage imageNamed:@"stopp.png"] forState:UIControlStateNormal];
+	audioSession = [AVAudioSession sharedInstance];
+	[audioSession setCategory :AVAudioSessionCategoryPlayAndRecord error:nil];
+	[audioSession setActive:YES error:nil];
+    
+	// Create a new dated file
+	NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+	NSString *caldate = [[now description] substringToIndex:19];
+    recorderFilePath = [[NSString alloc]initWithFormat:@"%@/%@.caf",DOCUMENTS_FOLDER, caldate];
+    NSURL *fileURL=[[NSURL alloc]initFileURLWithPath:recorderFilePath]; 
+    AVAudioRecorder *newRecorder=[[AVAudioRecorder alloc]initWithURL:fileURL settings:nil error:nil]; 
+    [fileURL release]; 
+    self.recorder=newRecorder; 
+    [newRecorder release]; 
+
+	NSURL *url = [NSURL fileURLWithPath:recorderFilePath];
+	recorder = [[ AVAudioRecorder alloc] initWithURL:url settings:nil error:nil];
+	[recorder setDelegate:self];
+	[recorder prepareToRecord];
+    [self startRecordTimer];
+    [recorder record];
+	recorder.meteringEnabled = YES;
+	[recorder recordForDuration:(NSTimeInterval) 1];   
+    navgationItem.rightBarButtonItem.enabled = NO;
+    isPlaying = NO; 
+	isPlayed = NO;
+}
+
+//------------------------------------------------------------------------------
+// -(void)stopRecord
+//------------------------------------------------------------------------------
+- (void) stopRecording{
+   
+    [timerOfRecord invalidate];
+    countOfRecord = 0;
+	[recorder stop];
+    
+	[record removeTarget:self action:@selector(stopRecording) forControlEvents:UIControlEventTouchUpInside];
+    [record addTarget:self action:@selector(startRecording) forControlEvents:UIControlEventTouchUpInside];	
+	[record setBackgroundImage:[UIImage imageNamed:@"begin.png"] forState:UIControlStateNormal];
+    record.enabled = NO;
+    playButton.enabled = YES;
+    navgationItem.rightBarButtonItem.enabled = YES;
+}
+
+//------------------------------------------------------------------------------
+// -(IBAction)playOrPauseRecording
+//------------------------------------------------------------------------------
+- (IBAction)playOrPauseRecording
+{
+    if (NO == isPlaying) {
+        isPlaying = YES;        	
+        [audioPlayer play];  
+        record.enabled = NO;
+        reRecord.enabled = NO;
+        [playButton setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+        if (NO == isPlayed) {
+            currentRecord.text = @"00:00:00";
+            NSURL *url = [NSURL fileURLWithPath:recorderFilePath];
+            audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];	
+            [audioPlayer prepareToPlay];
+            isPlayed = YES;
+            countOfPlay = 0;
+        }
+        [self startPlayTimer];
+        [audioPlayer play];
+        
+    }else{
+        isPlaying = NO;
+        [audioPlayer pause];
+        record.enabled = YES;
+        reRecord.enabled = YES;
+        [playButton setBackgroundImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+        [audioPlayer pause];
+        [timerOfPlay invalidate];
+    }
+      
+}
+
+//------------------------------------------------------------------------------
+// -(void)viewDidUnload
+//------------------------------------------------------------------------------
+- (void)viewDidUnload {
+	
+	self.recorder = nil;
+	self.recorderFilePath = nil;
+    self.timerOfRecord = nil;
+    self.timerOfPlay = nil;
+    self.record = nil;
+    self.currentRecord = nil;
+    self.reRecord = nil;
+    self.nameFiled = nil;
+    self.tap = nil;
+    
+    [super viewDidUnload];
+}
+
+//------------------------------------------------------------------------------
+// -(void)dealloc
+//------------------------------------------------------------------------------
+- (void)dealloc {
+    
+    [selectAll release];
+    [recorder release];
+    [recorderFilePath release];
+    [timerOfRecord release];
+    [timerOfPlay release];
+    [record release];
+    [currentRecord release];
+    [nameFiled release]; 
+    [audioPlayer release];
+    [tap release];
+    
+    [super dealloc];
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+
+    if (interfaceOrientation==UIInterfaceOrientationPortrait||interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)
+    {
+        navigationBar.frame = CGRectMake(0, 0, 320, 44);
+    }
+    else
+    {
+        navigationBar.frame = CGRectMake(0, 0, 480, 32);
+        
+    }
+
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    if (self.interfaceOrientation==UIInterfaceOrientationPortrait||self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)
+    {
+        navigationBar.frame = CGRectMake(0, 0, 320, 44);
+    }
+    else
+    {
+        navigationBar.frame = CGRectMake(0, 0, 480, 32);
+        
+    }
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    if (self.interfaceOrientation==UIInterfaceOrientationPortrait||self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)
+    {
+        navigationBar.frame = CGRectMake(0, 0, 320, 44);
+    }
+    else
+    {
+        navigationBar.frame = CGRectMake(0, 0, 480, 32);
+        
+    }
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
+@end

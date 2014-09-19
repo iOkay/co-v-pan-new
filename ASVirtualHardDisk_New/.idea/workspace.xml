@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cda043aa-110d-4831-b5ea-13a1adf0af86" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASVirtualHardDisk.xcodeproj/project.xcworkspace/xcuserdata/okay.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/ASVirtualHardDisk.xcodeproj/project.xcworkspace/xcuserdata/okay.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASView/ASBadgeView/ASBadgeView.h" afterPath="$PROJECT_DIR$/Classes/ASView/ASBadgeView/ASBadgeView.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASCreateFolderServlet.m" afterPath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASCreateFolderServlet.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASFileModel/ASDataObjectManager.h" afterPath="$PROJECT_DIR$/Classes/ASFileModel/ASDataObjectManager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASFileModel/ASDataObjectManager.m" afterPath="$PROJECT_DIR$/Classes/ASFileModel/ASDataObjectManager.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASLocalizable/ASDeclare.h" afterPath="$PROJECT_DIR$/Classes/ASLocalizable/ASDeclare.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASLocalizable/ASDeclare.m" afterPath="$PROJECT_DIR$/Classes/ASLocalizable/ASDeclare.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASDeleteServlet.m" afterPath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASDeleteServlet.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASFileModel/ASDirectoryEx.m" afterPath="$PROJECT_DIR$/Classes/ASFileModel/ASDirectoryEx.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASDownLoadServlet.m" afterPath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASDownLoadServlet.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASEdtingRenameStatus.m" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASEdtingRenameStatus.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASEdtingStatus.m" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASEdtingStatus.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASReadZbar/ASEmbedReaderViewController.h" afterPath="$PROJECT_DIR$/Classes/ASReadZbar/ASEmbedReaderViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASReadZbar/ASEmbedReaderViewController.m" afterPath="$PROJECT_DIR$/Classes/ASReadZbar/ASEmbedReaderViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASFileModel/ASFileEx.m" afterPath="$PROJECT_DIR$/Classes/ASFileModel/ASFileEx.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASFileListViewController.h" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASFileListViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASFileListViewController.m" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASFileListViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASFileListViewController.xib" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASFileListViewController.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASFileListXML.m" afterPath="$PROJECT_DIR$/Classes/ASWebServer/ASServlet/ASFileListXML.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASFileOperateViewController.m" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASFileOperateViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASView/ASIconContain.h" afterPath="$PROJECT_DIR$/Classes/ASView/ASIconContain.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASView/ASIconContain.m" afterPath="$PROJECT_DIR$/Classes/ASView/ASIconContain.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASLocalizable/ASLocalDefine.h" afterPath="$PROJECT_DIR$/Classes/ASLocalizable/ASLocalDefine.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASMainRightMenu.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASMainRightMenu.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASMainRightMenu.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASMainRightMenu.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASMainViewController.m" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASMainViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMedia/ASMediaPlayerViewController.h" afterPath="$PROJECT_DIR$/Classes/ASMedia/ASMediaPlayerViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMedia/ASMediaPlayerViewController.m" afterPath="$PROJECT_DIR$/Classes/ASMedia/ASMediaPlayerViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenu.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenu.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenu.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenu.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuDelegate.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuDelegate.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMedia/ASMusicPlayer.h" afterPath="$PROJECT_DIR$/Classes/ASMedia/ASMusicPlayer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMedia/ASMusicPlayer.m" afterPath="$PROJECT_DIR$/Classes/ASMedia/ASMusicPlayer.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMedia/ASMusicPlayerDelegate.h" afterPath="$PROJECT_DIR$/Classes/ASMedia/ASMusicPlayerDelegate.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStrategy/ASStrategys/ASMusicStrategy.m" afterPath="$PROJECT_DIR$/Classes/ASStrategy/ASStrategys/ASMusicStrategy.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithMenuStatus.h" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithMenuStatus.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithMenuStatus.m" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithMenuStatus.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithoutMenuStatus.h" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithoutMenuStatus.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithoutMenuStatus.m" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASNormalWithoutMenuStatus.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASPreferencesViewController.m" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASPreferencesViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASRenameStatus.m" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASRenameStatus.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRightMenuModel.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRightMenuModel.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRightMenuModel.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRightMenuModel.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRotateMenuModel.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRotateMenuModel.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRotateMenuModel.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASRotateMenuModel.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASScanMenuModel.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASScanMenuModel.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASScanMenuModel.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASScanMenuModel.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASScanViewController.m" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASScanViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASModel/ASServerInfo.h" afterPath="$PROJECT_DIR$/Classes/ASModel/ASServerInfo.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASModel/ASServerInfo.m" afterPath="$PROJECT_DIR$/Classes/ASModel/ASServerInfo.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASViewController/ASSettingViewController.m" afterPath="$PROJECT_DIR$/Classes/ASViewController/ASSettingViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASSortMenu.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASSortMenu.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASView/ASTableViewCell.h" afterPath="$PROJECT_DIR$/Classes/ASView/ASTableViewCell.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASView/ASTableViewCell.m" afterPath="$PROJECT_DIR$/Classes/ASView/ASTableViewCell.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASView/ASTableViewCell.xib" afterPath="$PROJECT_DIR$/Classes/ASView/ASTableViewCell.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASToolBarEdit.h" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASToolBarEdit.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStatus/ASToolBarEdit.m" afterPath="$PROJECT_DIR$/Classes/ASStatus/ASToolBarEdit.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASVirtualHardDisk.xcodeproj/xcuserdata/okay.xcuserdatad/xcschemes/ASVirtualHardDisk.xcscheme" afterPath="$PROJECT_DIR$/ASVirtualHardDisk.xcodeproj/xcuserdata/okay.xcuserdatad/xcschemes/ASVirtualHardDisk.xcscheme" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASVirtualHardDiskAppDelegate.m" afterPath="$PROJECT_DIR$/Classes/ASVirtualHardDiskAppDelegate.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASWebMenuModel.h" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASWebMenuModel.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASWebMenuModel.m" afterPath="$PROJECT_DIR$/Classes/ASMenu/ASMenuModel/ASWebMenuModel.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/ASStrategy/ASStrategys/ASZipStrategy.m" afterPath="$PROJECT_DIR$/Classes/ASStrategy/ASStrategys/ASZipStrategy.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/en.lproj/bottomMenu.plist" afterPath="$PROJECT_DIR$/Classes/en.lproj/bottomMenu.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Classes/zh-Hans.lproj/bottomMenu.plist" afterPath="$PROJECT_DIR$/Classes/zh-Hans.lproj/bottomMenu.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defaultDirectoryList.plist" afterPath="$PROJECT_DIR$/defaultDirectoryList.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/en.lproj/index.plist" afterPath="$PROJECT_DIR$/en.lproj/index.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/zh-Hans.lproj/index.plist" afterPath="$PROJECT_DIR$/zh-Hans.lproj/index.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASVirtualHardDisk.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ASVirtualHardDisk.xcodeproj/project.pbxproj" />
+    </list>
+    <ignored path="ASVirtualHardDisk_New.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/a.dummy" changelist="cda043aa-110d-4831-b5ea-13a1adf0af86" time="1378695183921" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPAD_0e4097649c7d79acd358417db255afaf91d2f49c" />
+  <component name="FavoritesManager">
+    <favorites_list name="ASVirtualHardDisk" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="MyWindow.m" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/ASWebView/MyWindow.m">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="0" selection-start="705" selection-end="705" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASTableViewCell.m" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Classes/ASView/ASTableViewCell.m">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="106" column="13" selection-start="3852" selection-end="3852" vertical-scroll-proportion="0.44310346">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1920" />
+    <option name="height" value="1004" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="DirectoryView.Xcode" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ASVirtualHardDisk" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ASVirtualHardDisk" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Classes" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="settings.xslt" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Application.ASVirtualHardDisk">
+    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="ASVirtualHardDisk" TARGET_NAME="ASVirtualHardDisk" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="ASVirtualHardDisk" RUN_TARGET_NAME="ASVirtualHardDisk" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ASVirtualHardDisk" type="AppleRunConfiguration" factoryName="Application" SCHEME_NAME="ASVirtualHardDisk" PROJECT_NAME="ASVirtualHardDisk" TARGET_NAME="ASVirtualHardDisk" CONFIG_NAME="Debug" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="ASVirtualHardDisk" RUN_TARGET_NAME="ASVirtualHardDisk" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
+      <envs />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Application.ASVirtualHardDisk" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="true" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="true">$USER_HOME$/.subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cda043aa-110d-4831-b5ea-13a1adf0af86" name="Default" comment="" />
+      <created>1378695121940</created>
+      <updated>1378695121940</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1920" height="1004" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3296582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24986821" sideWeight="0.6703418" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Classes/ASWebView/MyWindow.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="0" selection-start="705" selection-end="705" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/ASMenu/ASMenu.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="5" selection-start="3305" selection-end="3305" vertical-scroll-proportion="0.49827588">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/ASView/ASTableViewCell.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="106" column="13" selection-start="3852" selection-end="3852" vertical-scroll-proportion="0.44310346">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

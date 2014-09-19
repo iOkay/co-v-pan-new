@@ -1,0 +1,242 @@
+//
+//  ASTableViewCell.m
+//  ASVirtualHardDisk
+//
+//  Created by Yunxing.D on 11-8-23.
+//  Copyright 2011 AlphaStudio. All rights reserved.
+//
+
+
+#import "ASDataObject.h"
+#import "ASDataObjectManager.h"
+#import "ASDirectoryEx.h"
+#import "ASFileAttribute.h"
+#import "ASFileEx.h"
+#import "ASIconContain.h"
+#import "ASImageResize.h"
+#import "ASMusicPlayer.h"
+#import "ASTableViewCell.h"
+#import "ASServerInfo.h"
+
+@implementation ASTableViewCell
+
+@synthesize mainText;
+@synthesize mp3Slider;
+@synthesize filePath;
+@synthesize iconView;
+
+//------------------------------------------------------------------------------
+//- (void)confirmCell : (id<ASDataObject>) aItem
+//------------------------------------------------------------------------------
+- (void)confirmCell:(id<ASDataObject>) aItem
+{
+    if(mp3Slider){
+        [mp3Slider removeFromSuperview];
+        mp3Slider = nil;
+        self.detailTextLabel.hidden = NO;
+    }
+    
+    if(filePath){
+        [filePath release];
+        filePath = nil;
+    }
+    
+    filePath = [[NSMutableString alloc] initWithString:[[ASDataObjectManager sharedDataManager] getRootPath]];
+    [filePath appendString:[aItem getFullItemName]];
+    
+    NSString *fileName = [aItem getItemName];
+        
+    if(0 != [[fileName pathExtension] length]){
+        self.mainText.text = [fileName stringByDeletingPathExtension];
+    }else{
+        self.mainText.text = fileName;
+    }
+    
+    NSDictionary *dic = [aItem getItemAttribution];
+    
+    self.detailTextLabel.text = [NSString stringWithFormat:@"%@        %@",
+                                 [dic objectForKey:kFileSizeValue],
+                                 [dic objectForKey:kFileCreateValue]];
+    
+    [iconView clear];
+    NSString *suffix = [aItem getFileTypeExtension];
+    NSString *image = [[ASIconContain sharedIconContain] getCustom:suffix];
+    NSBundle *bundle = [NSBundle mainBundle];
+    
+    ASServerInfo *serverInfo = [ASServerInfo sharedASServerInfo];
+    if([aItem getFileType] == 0) {
+        ASDirectoryEx *folder = (ASDirectoryEx *)aItem;
+        iconView.url = [NSURL fileURLWithPath:[bundle pathForResource:@"icon_folder.png" ofType:nil]];
+        iconView.oid = [NSString stringWithString:@"icon_folder.pngIconIndentifier"];
+        
+        int count = [[folder getFileList:NO] count];
+        
+        if(count > 1) {
+            self.detailTextLabel.text = [NSString 
+                                         stringWithFormat:@"%@%15d files",
+                                         [dic objectForKey:kFileCreateValue],
+                                         count];
+            
+        } else {
+            self.detailTextLabel.text = [NSString 
+                                         stringWithFormat:@"%@%15d file",
+                                         [dic objectForKey:kFileCreateValue],
+                                         count];
+            
+        }
+        
+    } else if((4 == [aItem getFileType] || 5 == [aItem getFileType]) &&
+            YES == serverInfo.isRealImage){
+        iconView.url = [NSURL fileURLWithPath:filePath];
+        iconView.oid = [NSString stringWithFormat:@"%@IconIndentifier",filePath];
+    } else {
+        if(image) {
+            iconView.url = [NSURL fileURLWithPath:[bundle pathForResource:image ofType:nil]];
+            iconView.oid = [NSString stringWithFormat:@"%@IconIndentifier",image];
+        } else {
+            iconView.url = [NSURL fileURLWithPath:[bundle pathForResource:@"icon_unknow.png" ofType:nil]];
+            iconView.oid = [NSString stringWithString:@"icon_unknow.pngIconIndentifier"];
+        }
+        
+    }
+    
+}
+//------------------------------------------------------------------------------
+// - (UIView *) hitTest:(CGPoint)point withEvent:(UIEvent *)event
+//------------------------------------------------------------------------------
+- (UIView *) hitTest:(CGPoint)aPoint withEvent:(UIEvent *)aEvent
+{
+    UIView *view = [super hitTest:aPoint withEvent:aEvent];
+
+    UIGestureRecognizer *gesture = [self.gestureRecognizers	objectAtIndex:0];
+    gesture.enabled = !(mp3Slider == view);
+
+    return view;
+}
+
+//------------------------------------------------------------------------------
+// - (void)mp3TableViewCelldidSelect
+//------------------------------------------------------------------------------
+- (void)mp3TableViewCelldidSelect
+{
+	if (mp3Slider) {
+		[mp3Slider removeFromSuperview];
+		self.mp3Slider = nil;
+	}
+    
+    mp3Slider = [[UISlider alloc] initWithFrame:CGRectMake(50, 25, 180, 23)];
+    mp3Slider.continuous = YES;
+    
+    [mp3Slider addTarget: self
+                  action: @selector(changeTime:)
+        forControlEvents: UIControlEventValueChanged];
+    
+    [self.contentView addSubview:mp3Slider];
+    self.detailTextLabel.hidden = YES;
+}
+
+//------------------------------------------------------------------------------
+// - (void)mp3TableViewCelldidDeselect
+//------------------------------------------------------------------------------
+- (void)mp3TableViewCelldidDeselect
+{
+	[mp3Slider removeFromSuperview];
+	self.mp3Slider = nil;
+    self.detailTextLabel.hidden = NO;
+	self.detailTextLabel.font = [UIFont systemFontOfSize:13];
+}
+
+
+//------------------------------------------------------------------------------
+// -(void) changeTime:(id)sender
+//------------------------------------------------------------------------------
+-(void) changeTime:(id)sender
+{
+	NSURL *url = [[NSURL alloc] 
+        initWithString:[filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	if (![ASMusicPlayer playAtProgress:mp3Slider.value url:url]) {
+		mp3Slider.value = 0.0;
+	}
+    [url release];
+    url = nil;
+}
+
+//------------------------------------------------------------------------------
+// - (id) initWithStyle:(UITableViewCellStyle)style 
+//        reuseIdentifier:(NSString *)reuseIdentifier
+//------------------------------------------------------------------------------
+- (id) initWithStyle:(UITableViewCellStyle)style 
+     reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	if (self) 
+    {
+        self.textLabel.text = @" ";
+        self.textLabel.textColor = [UIColor clearColor];
+        
+		mainText = [[UITextField alloc] initWithFrame:CGRectMake(50, 3, 210, 23)];
+		mainText.font = [UIFont boldSystemFontOfSize:17];
+		mainText.textColor = [UIColor blackColor];
+		mainText.returnKeyType = UIReturnKeyDone;
+        
+		[self.contentView addSubview:mainText];
+		
+        iconView = [[HJManagedImageV alloc] initWithFrame:CGRectMake(7, 7, 35, 35)];
+        iconView.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Placeholder.png" ofType:nil]];
+        iconView.oid = [NSString stringWithString:@"Placeholder.pngIconIndentifer"];
+        [self.contentView addSubview:iconView];
+        
+        //set selected view
+        UIView *selectedView = [[UIView alloc] initWithFrame:self.frame];
+        selectedView.alpha = 0.8f;
+        selectedView.backgroundColor = [UIColor grayColor];
+        self.selectedBackgroundView = selectedView;
+        [selectedView release];
+        
+        //config detailTextLabel
+        self.detailTextLabel.textColor = [UIColor blackColor];
+        self.detailTextLabel.font = [UIFont systemFontOfSize:13];
+        self.detailTextLabel.alpha = 0.60f;
+	}
+	
+	return self;
+}
+
+//------------------------------------------------------------------------------
+// - (void) dealloc
+//------------------------------------------------------------------------------
+- (void) dealloc{
+	[mainText release];
+    [mp3Slider release];
+    [filePath release];
+    [iconView release];
+    //    [currentItem release];
+    
+	[super dealloc];
+}
+
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    if (!editing)
+    {
+        UIView *selectedView = [[UIView alloc] initWithFrame:self.frame];
+        selectedView.alpha = 0.8f;
+        selectedView.backgroundColor = [UIColor grayColor];
+        self.selectedBackgroundView = selectedView;
+        [selectedView release];
+    }
+    else
+    {
+        self.selectedBackgroundView = nil;
+    }
+    
+    [super setEditing: editing animated: animated];
+}
+
+- (void)layoutSubviews 
+{
+    [super layoutSubviews];
+    self.detailTextLabel.frame = CGRectMake(50, 28, 230, 20);
+}
+
+@end

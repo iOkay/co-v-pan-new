@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>arrowImage</key>
+	<string>black.png</string>
+	<key>backgroundImage</key>
+	<string>bg_popup.png</string>
+	<key>item</key>
+	<array>
+		<string>复制</string>
+		<string>移动</string>
+		<string>压缩</string>
+		<string>发送邮件</string>
+		<string>重命名</string>
+		<string>删除</string>
+	</array>
+	<key>itemIcon</key>
+	<array>
+		<string>copy1.png</string>
+		<string>move1.png</string>
+		<string>zip1.png</string>
+		<string>email1.png</string>
+		<string>edit1.png</string>
+		<string>delete1.png</string>
+	</array>
+	<key>selectors</key>
+	<dict>
+		<key>删除</key>
+		<string>doDelete</string>
+		<key>压缩</key>
+		<string>doZip</string>
+		<key>发送邮件</key>
+		<string>doMail</string>
+		<key>复制</key>
+		<string>doCopy</string>
+		<key>移动</key>
+		<string>doMove</string>
+		<key>重命名</key>
+		<string>doRename</string>
+	</dict>
+</dict>
+</plist>

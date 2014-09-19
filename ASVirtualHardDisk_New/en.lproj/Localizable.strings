@@ -1,0 +1,254 @@
+/* 
+  Localizable.strings
+  ASVirtualHardDisk
+
+  Created by dai yunxing on 11-10-10.
+  Copyright 2011年 AlphaStudio. All rights reserved.
+*/
+
+//ASPreferencesViewController.m
+"Preferences" = "Preferences";
+"Drive Info" = "Drive Info";
+"NickNameTitle" = "NickNameTitle";
+"Home" = "Home";
+"Total Space" = "Total Space";
+"Free Space" = "Free Space";
+
+//for ASReadZbar
+"resultText" ="This is the Bar Code";
+"goto" = "Goto";
+
+//for ASServlet
+"Create Folder Requested" = "Create Folder Requested.";
+"logPath" = "Delete File Requested.";
+"logPathList" = "Delete list Requested.";
+"logPathDown" = "File Down Requseted.";
+"File List Requested" = "File List Requested.";
+
+//forASMusicPlayer
+"currentTime" = "CurrenTime";
+
+//for ASMediaPlayerViewController
+"namefile" = "Your file's name";
+"tap" = "Tap to change your file's name";
+"cancel" = "Cancel";
+"use" = "Save";
+
+//for ASWebView
+"noweb" = "No web to draw!";
+"Down False" = "Down False";
+"Down Ok" = "Down OK";
+"Down Suspend" = "Down Suspend";
+
+//for ASStrategy
+"wait" = "Waiting...";
+
+//for ASZip
+"entries in the zip file" = "entries in the zip file";
+"failed" = "Failed";
+"error" = "Error occurs";
+"errorfile" = "Error occurs while getting file info";
+"readfailed" = "Failed to reading zip file";
+"set" = "Failed to set attributes";
+
+//for viewcontroller
+"notopen" = "Can not open this file!";
+"save" = "Save";
+"HttpAddress" = "HTTP link address:";
+"Real img switched" = "Real img switched";
+"Setting done" = "Setting done";
+"quarterCWPressed" = "QuarterCWPressed";
+"quarterCCWPressed" = "QuarterCCWPressed";
+"halfPressed" = "HalfPressed";
+"The file has been modified.\n\tDo you want to save the file?" = "The file has been modified.\n\tDo you want to save the file?";
+"Can not open this file!" = "Can not open this file!";
+"Exist homonymic file,\nDo want to cover it?" = "This file already exists,\nDo you want to cover it?";
+"YES" = "YES";
+"No directory contains." = "No directory contains.";
+"Ok, I Know." = "OK, I Know.";
+"Status :" = "Status :";
+"Dashboard" = "Dashboard";
+"Local:" = "Local";
+//"IntroductionText"  = "introduction_e.html" ;    
+//"ConnectingText" = "ConnectingText";
+//"TipsText" = "TipsText";
+"Can not open the file!" = "Can not open the file!";
+"Download List" = "Download List";
+"Setting" = "Settings";
+
+
+//for ASFileAttributeViewontroller
+"Location :" = "Location :";
+"FileName :" = "FileName :";
+"Type       :" = "Type       :";
+"Size         :" = "Size         :";
+"Create     :" = "Create     :";
+"Moditify   :" = "Moditify   :";
+"Owner      :" = "Owner      :";
+"File Attribute List" = "File Attribute List";
+"Unkonw" = "Unknow";
+"directory" = "Directory";
+
+//for ASMainViewController
+"Dashboard" = "Dashboard";
+"Status :" = "Status :";
+"Connect by :" = "Connect by :";
+"FtpAddress" = "FTP link address:";
+"URL:" = "URL:";
+"No Wi-Fi available." = "No available Wi-Fi";
+"FTP" = "FTP";
+"Local Files" = "Local Files";
+"Server off" = "Server off";
+"Server on" = "Server on";
+"Touch" = "Touch";
+"ToOpenServer" = "to open Server";
+"CheckOut" = "Please check out your network";
+
+//for ASPreferencesViewController
+"Preferences" = "Preferences";
+"Drive Info" = "Drive Info";
+"NickNameTitle" = "NickName:";
+"Total Space" = "Total Space";
+"Free Space" = "Free Space";
+
+//for ASSettingViewController
+"Server" = "Server";
+"Real img" = "Thumbnail";
+
+//for navigation
+"Back" = "Back";
+"Done" = "Done";
+//"Delete" = "Delete";
+"Edit" = "Edit";
+
+//for root directory
+"Local" = "Local";
+
+//for ASHelpViewController
+"Help" = "Help";
+"Introduction" = "Introduction";
+"General" = "General";
+"Tip" = "Tips";
+"Mac OS" = "Mac OS";
+"Windows" = "Windows";
+
+
+"IntroductionText" = "introduction_e.html";
+"ConnectingText" = "connecting_e.html";
+"TipsText" ="tips_e.html";
+"MacText" = "mac_e.html";
+"WindowsText" = "windows_e.html";
+
+//for ASFileListViewCintroller editing tool bar
+"E-mail" = "Email";
+
+//for send mail
+"Please make sure you can send eMail." = "Please make sure you can send Email.";
+
+//for ASFileListViewZipLargeFile
+"File is too large" = "The file is too large";
+"Ok, I know." = "OK, I know!";
+
+//for ASFileListViewController
+"Warning:" = "Warning:";
+"I Will" = "I Will";
+//"Edit" = "Edit";
+//"Done" = "Done";
+"Selected All" = "Selected all";
+"Deselected All" = "Deselected all";
+
+
+//for ASFileListVoewController -- delete file
+//"Warning:" = "Warning:";
+"Are you sure to delete the files?" = "Are you sure to delete the files?";
+"delete" = "Delete";
+"cancel" = "Cancel";
+
+//for ASFileListViewController -- rename
+"Existed name, try another, please" = "Existed name, please try another one.";
+
+//for ASFileListViewController -- file operator
+"Delete" = "Delete";
+"Copy" = "Copy";
+"Move" = "Move";
+"Home" = "Home";
+"Cancel" = "Cancel";
+"Zip" = "Zip";
+
+//for ASSearchViewControlelr
+"Result List" = "Search";
+"Sorry, no files matched." = "Sorry, no files matched.";
+"OK, I know." = "OK, I know.";
+"Warning" = "Warning";
+
+//for ASFileOperatorViewController
+"Please choose some files." = "Please choose some files.";
+
+
+
+
+//modify by suzhaoyang
+//date 11.14
+"actionSheetCancelTitle" = "Cancel";
+"actionSheetAddBookmarkTitle" = "Add Bookmark";
+"actionSheetSaveCurrentPageTitle" = "Save Current Page";
+"sctionSheetPrintTitle" = "Print";
+"webSheetCancel" = "Cancel";
+"webSheetOpenLink" = "Open Link";
+"webSheetDownLoadLink" = "DownLoad Link";
+"webSheetSavePicture" = "Save Picture";
+"webSheetSaveBookMark" = "Save BookMark";
+"downLoadCleanButton" = "Clean";
+"webViewTittle" = "Web";
+"bookmarkListTittle" = "Bookmark List";
+"webViewTittle" = "Web";
+"bookmarkListTittle" = "BookmarkList";
+"downLoadStatuLabelFail" = "Download failed";
+"downLoadStatuLabelSucceed" = "Download succeeded";
+"downLoadStatuLabelStop" = "Download paused";
+
+//for zbar Code
+"This is the Bar Code" = "Please put two-dimensional code in rectangular box, we will automatically recognize it.";
+//"Goto" = "Goto";
+
+//for recording
+"Recorder" = "Recorder";
+"Use" = "Use";
+"your file's name" = "Your file's name";
+"Tap to change your file's name"= "Tap to change your file's name";
+
+//for howToUseFile
+"howToUseFileName" = "english.pdf";
+
+//for webView
+"Message" = "Message";
+
+//for webPage
+"WebServerWebPage" = "/Library/webPage/webEn/";
+
+//for sectionView
+"iFilesBox" = "My Documents";
+"connecting" = "Connecting";
+"doYouLikeIt" = "Do you like it?";
+
+//for settingView
+"settingHelp" = "When the thumbnail is on, pictures will be showed on the form of the thumbnail in the catalog.\nBecause of the processor of your iPhone/iPod touch, when loading the thumbnail, it maybe not fluent to slide the catalog. \nWe are sorry for the inconvenience through your browsing.";
+
+//for scanView
+"NoApp" = "No application can open the file";
+
+//for ASEdtingStatus
+"deletebutton" = "e1_delete.png";
+"copybutton" = "e1_copy.png";
+"zipbutton" = "e1_zip.png";
+"emailbutton" = "e1_email.png";
+"movebutton" = "e1_move.png";
+
+"vdeletebutton" = "e2_delete.png";
+"vcopybutton" = "e2_copy.png";
+"vzipbutton" = "e2_zip.png";
+"vemailbutton" = "e2_email.png";
+"vmovebutton" = "e2_move.png";
+
+//for download view controller
+"Transfer" = "Transfer";

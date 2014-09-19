@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>arrowImage</key>
+	<string>dirbtn1.png</string>
+	<key>backgroundImage</key>
+	<string>bg_sort.png</string>
+	<key>item</key>
+	<array>
+		<string>按名字</string>
+		<string>按时间</string>
+		<string>按种类</string>
+		<string>按大小</string>
+		<string>正序</string>
+		<string>反序</string>
+	</array>
+	<key>itemIcon</key>
+	<array>
+		<string>sort_name.png</string>
+		<string>sort_date.png</string>
+		<string>sort_kind.png</string>
+		<string>sort_size.png</string>
+		<string>asc.png</string>
+		<string>desc.png</string>
+	</array>
+	<key>selectors</key>
+	<dict/>
+</dict>
+</plist>

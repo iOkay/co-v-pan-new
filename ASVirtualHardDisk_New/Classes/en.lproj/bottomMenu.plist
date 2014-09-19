@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>arrowImage</key>
+	<string>dirbtn1.png</string>
+	<key>backgroundImage</key>
+	<string>bg_add.png</string>
+	<key>item</key>
+	<array>
+		<string>New Folder</string>
+		<string>New Text</string>
+		<string>Take Picture</string>
+		<string>Record Audio</string>
+		<string>Record Video</string>
+		<string>From Albums</string>
+	</array>
+	<key>itemIcon</key>
+	<array>
+		<string>newFolder.PNG</string>
+		<string>newTXT.png</string>
+		<string>photo.PNG</string>
+		<string>recording.png</string>
+		<string>voiceRecording.PNG</string>
+		<string>fromLibrary.PNG</string>
+	</array>
+	<key>selectors</key>
+	<dict>
+		<key>Bar code</key>
+		<string>scanButtonTapped</string>
+		<key>Browser</key>
+		<string>showWebView</string>
+		<key>Copy</key>
+		<string>doCopy</string>
+		<key>DateAsc</key>
+		<string>sortByDateAsc</string>
+		<key>DateDesc</key>
+		<string>sortByDateDesc</string>
+		<key>Delete</key>
+		<string>doDelete</string>
+		<key>E-mail</key>
+		<string>doMail</string>
+		<key>From Albums</key>
+		<string>addPicturesOrVideos</string>
+		<key>From iPod</key>
+		<string>addMusic</string>
+		<key>Move</key>
+		<string>doMove</string>
+		<key>NameAsc</key>
+		<string>sortByNameAsc</string>
+		<key>NameDesc</key>
+		<string>sortByNameDesc</string>
+		<key>New Folder</key>
+		<string>addFolder</string>
+		<key>New Text</key>
+		<string>addTXT</string>
+		<key>Record Audio</key>
+		<string>recordAudios</string>
+		<key>Record Video</key>
+		<string>showCamcorder</string>
+		<key>Rename</key>
+		<string>doRename</string>
+		<key>SizeDesc</key>
+		<string>sortBySizeDesc</string>
+		<key>Take Picture</key>
+		<string>showCamera</string>
+		<key>Type</key>
+		<string>sortByType</string>
+		<key>Zip</key>
+		<string>doZip</string>
+		<key>Share</key>
+		<string>doShare</string>
+	</dict>
+</dict>
+</plist>

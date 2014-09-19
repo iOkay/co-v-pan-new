@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bmp</key>
+	<string>icon_bmp.png</string>
+	<key>caf</key>
+	<string>icon_caf.png</string>
+	<key>doc</key>
+	<string>icon_doc.png</string>
+	<key>docx</key>
+	<string>icon_docx.png</string>
+	<key>folder</key>
+	<string>icon_folder.png</string>
+	<key>gif</key>
+	<string>icon_gif.png</string>
+	<key>jpg</key>
+	<string>icon_jpg.png</string>
+	<key>mov</key>
+	<string>icon_mov.png</string>
+	<key>mp3</key>
+	<string>icon_mp3.png</string>
+	<key>mp4</key>
+	<string>icon_mp4.png</string>
+	<key>pdf</key>
+	<string>icon_pdf.png</string>
+	<key>png</key>
+	<string>icon_png.png</string>
+	<key>ppt</key>
+	<string>icon_ppt.png</string>
+	<key>pptx</key>
+	<string>icon_pptx.png</string>
+	<key>rtf</key>
+	<string>icon_rtf.png</string>
+	<key>tiff</key>
+	<string>icon_tiff.png</string>
+	<key>txt</key>
+	<string>icon_txt.png</string>
+	<key>xls</key>
+	<string>icon_xls.png</string>
+	<key>xlsx</key>
+	<string>icon_xlsx.png</string>
+	<key>zip</key>
+	<string>icon_zip.png</string>
+</dict>
+</plist>

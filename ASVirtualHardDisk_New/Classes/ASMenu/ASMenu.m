@@ -1,0 +1,201 @@
+//------------------------------------------------------------------------------
+// Filename:        ASMenu.m
+// Project:         ASVirtualHardDisk
+// Author:          wangqiushuang
+// Date:            11-10-22
+// Version:         
+// Copyright 2011 Alpha Studio. All rights reserved. 
+//------------------------------------------------------------------------------
+
+// Quote header files.
+#import <QuartzCore/QuartzCore.h>
+
+#import "ASMenu.h"
+#import "ASImageResize.h"
+
+@interface ASMenu ()
+
+
+@property (nonatomic, retain) UIImageView *arrowView;
+
+@end
+
+@implementation ASMenu
+
+@synthesize delegate;
+@synthesize dataSource;
+@synthesize menuView;
+@synthesize arrowView;
+
+
+//------------------------------------------------------------------------------
+// - (id) initWithPoint:(CGPoint)menuPoint andArrowPoint:(CGPoint)arrowPoint
+//------------------------------------------------------------------------------
+- (id)initWithPoint:(CGPoint)menuPoint 
+      andArrowPoint:(CGPoint)arrowPoint 
+      andDataSource:(id<ASMenuDataSource>)data
+{
+    dataSource = data;
+    
+    UIImage *backgroundImage = [dataSource backgroundForMenu:self];
+    UIImage *arrowImage = [dataSource arrowImageForMenu:self];
+    
+    //set menu data source
+    item = [dataSource itemsForMenu:self];
+    itemIcon = [dataSource iconsForMenu:self];
+    
+    //set frame for menu
+    CGRect menuFrame = CGRectMake(menuPoint.x-10,
+                                  menuPoint.y-10,
+                                  backgroundImage.size.width/2-7,
+                                  backgroundImage.size.height/2);
+    self = [super initWithFrame:menuFrame];
+    if(self) {
+        //set background image
+        [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+
+        //add a table view to menu
+        menuView = [[UITableView alloc] 
+                    initWithFrame:CGRectMake(14.5f,
+                                             17.0f, 
+                                             self.bounds.size.width-29, 
+                                             self.bounds.size.height-19.0f) 
+                    style:UITableViewStylePlain];
+        
+        menuView.rowHeight = 26.0f;
+		menuView.delegate = self;
+		menuView.dataSource = self;
+		menuView.backgroundColor = [UIColor clearColor];
+		menuView.separatorColor = [UIColor clearColor];
+        menuView.scrollEnabled = NO;
+		[self addSubview:menuView];
+		[menuView release];
+        
+        //set arrow view
+        arrowView = [[UIImageView alloc] initWithImage:arrowImage];
+        CGRect arrowFrame = CGRectMake(arrowPoint.x+19,
+                                       arrowPoint.y+6,
+                                       arrowImage.size.width*0.5, 
+                                       arrowImage.size.height*0.8);
+        arrowView.frame = arrowFrame;
+        [self addSubview:arrowView];
+        [arrowView release];
+    }
+    
+    return self;
+}
+
+//------------------------------------------------------------------------------
+// - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+//------------------------------------------------------------------------------
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+	BOOL res = [super pointInside:point withEvent:event];
+	if (!res) {
+		[self removeFromSuperview];
+	}
+	return res;
+}
+
+//------------------------------------------------------------------------------
+// - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+//------------------------------------------------------------------------------
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+	UIView *view = [super hitTest:point withEvent:event];
+	if (view == self) {
+		[self removeFromSuperview];
+	}
+	return view;
+}
+
+//------------------------------------------------------------------------------
+// - (void)dealloc 
+//------------------------------------------------------------------------------	
+- (void)dealloc 
+{
+    [super dealloc];
+}
+
+//------------------------------------------------------------------------------
+// - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
+//     (NSIndexPath *)indexPath
+//------------------------------------------------------------------------------
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) 
+    {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                       reuseIdentifier:CellIdentifier] autorelease];
+		cell.backgroundColor = [UIColor clearColor];
+        
+        
+        //cell.frame = CGRectMake(0, 0, 100, 10);
+		UIView *selectedView = [[UIView alloc] initWithFrame:cell.frame];
+        //UIImage *selectimage = [UIImage imageWithImage:[UIImage imageNamed:@"cell_sort.png"]
+        //                                scaledToSize:CGSizeMake(25.0f, 25.0f)];
+		selectedView.backgroundColor = [UIColor darkGrayColor];
+        selectedView.layer.cornerRadius = 8.0f;
+        selectedView.layer.masksToBounds = YES;
+        selectedView.layer.borderWidth = 10.0f;
+        selectedView.layer.borderColor = [[UIColor clearColor] CGColor];
+		cell.selectedBackgroundView = selectedView;//.backgroundColor = [UIColor clearColor];
+		[selectedView release];
+        
+        UILabel *textLabel = [[UILabel alloc] initWithFrame: CGRectMake(40, 0, 200, 26)];
+        textLabel.backgroundColor = cell.backgroundColor;
+        textLabel.tag = 2;
+        [cell.contentView addSubview: textLabel];
+        [textLabel release];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame: CGRectMake(3, 1, 25, 25)];
+        imageView.tag = 1;
+        [cell.contentView addSubview: imageView];
+        [imageView release];
+    }
+    
+    // Configure the cell...
+    UILabel *cellLabel = (UILabel*)[cell.contentView viewWithTag: 2];
+	cellLabel.text = [item objectAtIndex:[indexPath row]];
+    cellLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+	cellLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.text = [item objectAtIndex: [indexPath row]];
+    cell.textLabel.hidden = YES;
+    
+    UIImage *image = [UIImage imageNamed:[itemIcon objectAtIndex:[indexPath row]]];
+    UIImageView *cellImageView = (UIImageView*)[cell.contentView viewWithTag: 1];
+    cellImageView.image = image;
+    return cell;
+}
+
+//------------------------------------------------------------------------------
+// - (void) tableView:(UITableView *)tableView
+//    didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//------------------------------------------------------------------------------
+- (void)tableView:(UITableView *)tableView 
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [delegate menu:self clickedAtIndex:indexPath];
+    [self removeFromSuperview];
+}
+
+//------------------------------------------------------------------------------
+// - (NSInteger)tableView:(UITableView *)tableView
+//    numberOfRowsInSection:(NSInteger)section
+//------------------------------------------------------------------------------
+- (NSInteger)tableView:(UITableView *)table 
+ numberOfRowsInSection:(NSInteger)section
+{
+	return [dataSource numberOfItems:self];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 1;
+}
+
+@end

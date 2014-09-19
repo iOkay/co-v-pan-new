@@ -1,0 +1,31 @@
+//------------------------------------------------------------------------------
+// Filename:        ASMenuDelegate.h
+// Project:         ASVirtualHardDisk
+// Author:          wangqiushuang
+// Date:            11-10-13
+// Version:         
+// Copyright 2011 AlphaStudio. All rights reserved. 
+//------------------------------------------------------------------------------
+// Quote the standard library header files. 
+#import <UIKit/UIKit.h>
+
+@class ASMenu;
+
+@protocol ASMenuDelegate
+@required
+
+/*
+ @function   menu:clickedAtIndex:
+ @abstract   respond to the menu item selected
+ @param      (ASMenu *) menu - a instance of menu
+ (NSIndexPath *) indexPath - index of item
+ @result     void
+ */
+- (void) menu:(ASMenu *)menu clickedAtIndex:(NSIndexPath *) indexPath;
+
+@optional
+//add by Liu Dong on Dec 12th,2011
+//just for sort
+- (void) beginSortWithType:(int)aType andFlag:(BOOL)aFlag;
+
+@end

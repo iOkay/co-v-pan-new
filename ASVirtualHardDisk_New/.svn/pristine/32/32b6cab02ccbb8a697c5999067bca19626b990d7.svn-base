@@ -1,0 +1,674 @@
+//
+//  ASFileOperateViewController.m
+//  ASVirtualHardDisk
+//
+//  Created by Yunxing.D on 11-8-26.
+//  Copyright 2011 AlphaStudio. All rights reserved.
+//
+
+#import "ASFileOperateViewController.h"
+#import "ASLocalDefine.h"
+#import "ASDataObjectManager.h"
+#import "ASDataObject.h"
+#import "ASDeclare.h"
+#import "ASDirectoryEx.h"
+#import "ASFileEx.h"
+#import "ASTableViewCell.h"
+
+@interface ASFileOperateViewController ()
+
+/*
+    @function   - (void) searchDirectorys
+    @abstract   show directorys in the current directory 
+                and delete the file with same path
+    @param      none
+    @result     void
+*/
+- (void) searchDiretorys;
+
+@end
+
+
+@implementation ASFileOperateViewController
+
+@synthesize tableViewDirectory;
+@synthesize arrayToOperate;
+@synthesize arrayDirectory;
+@synthesize isSelectButonTapped;
+@synthesize operation;
+@synthesize root;
+@synthesize indexPathOfSelected;
+@synthesize currentItem;
+@synthesize imgManager;
+//@synthesize destinationDirectory;
+
+#pragma mark -
+#pragma mark private method
+//------------------------------------------------------------------------------
+// - (NSString *) getCreateDate:(NSDate *)creation
+//------------------------------------------------------------------------------
+- (NSString *) getCreationDate:(NSDate *)creation
+{
+    //creation date
+	NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init]; 
+	[dateFormatter setDateFormat:@"yyyy/MM/dd"];
+    
+    if(creation == nil)
+    {
+        creation = [NSDate date];
+    }
+	NSString *fileCreation = [NSString stringWithString:[dateFormatter stringFromDate:creation]];
+    
+    [dateFormatter release];
+    return fileCreation;
+}
+
+//------------------------------------------------------------------------------
+// -(void)MoveView:(UIView *)view To:(CGRect)frame During:(float)time
+//------------------------------------------------------------------------------
+-(void)MoveView:(UIView *)view To:(CGRect)frame During:(float)time
+{
+	// 动画开始
+	[UIView beginAnimations:nil context:nil];
+	// 动画时间曲线 EaseInOut效果
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut]; 
+	// 动画时间
+	[UIView setAnimationDuration:time];
+	view.frame = frame;
+	// 动画结束（或者用提交也不错）
+	[UIView commitAnimations];
+}
+
+//------------------------------------------------------------------------------
+// - (void) searchDiretorys
+//------------------------------------------------------------------------------
+- (void) searchDiretorys
+{
+    //show directorys in the current directory and delete the file with same path
+	
+    if(arrayDirectory != nil)
+    {
+        self.arrayDirectory = nil;
+    }
+    
+	arrayDirectory = [[NSMutableArray alloc] init];
+    
+    NSArray *fileTmp = [currentItem getFileList:NO];
+    
+	for (int i=0; i < [fileTmp count]; i++)
+    {
+        id<ASDataObject> tmpObj = [fileTmp objectAtIndex:i];
+        if([[tmpObj getFileTypeString] isEqualToString:NSFileTypeDirectory])
+        {
+            [arrayDirectory addObject:tmpObj];
+        }
+	}
+    
+    for (int j = 0; j < [arrayToOperate count]; j++) 
+    {//delete the files with the same file path
+        id<ASDataObject> dataObj = [arrayToOperate objectAtIndex:j];
+
+        for (int k = 0; k < [arrayDirectory count]; k++)
+        {
+            id<ASDataObject> file = [arrayDirectory objectAtIndex:k];
+            if([[file getFullItemName] isEqualToString:[dataObj getFullItemName]])
+            {
+                [arrayDirectory removeObject:file];
+            }
+        }
+    }
+
+}
+
+//------------------------------------------------------------------------------
+// - (void) showAlertWarning
+//------------------------------------------------------------------------------
+- (void) showAlertWarning
+{
+    UIAlertView *alert = [[UIAlertView alloc] 
+                          initWithTitle:kDeleteFileAlertTitle
+                          message:KCoverFile
+                          delegate:self 
+                          cancelButtonTitle:KYES
+                          otherButtonTitles:KCancel,nil];
+    
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+// - (void) cancelOperation
+//------------------------------------------------------------------------------
+- (void) cancelOperation
+{
+	[self.navigationController popToViewController:root animated:YES];
+}
+
+//------------------------------------------------------------------------------
+// - (void) addCancelButton
+//------------------------------------------------------------------------------
+- (void) addCancelButton
+{
+	UIBarButtonItem *editButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle:declare.fileOperateCancel
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self 
+                                   action:@selector(cancelOperation)];
+	self.navigationItem.rightBarButtonItem = editButton;
+	
+	[editButton release];
+}
+
+- (IBAction)showWithLabel:(id)sender 
+{
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+    HUD.delegate = self;
+//    HUD.labelText = KWait;
+
+    [HUD showWhileExecuting:@selector(rootUsed) onTarget:self withObject:nil animated:YES];
+    
+//    [HUD release];
+//    HUD = nil;
+}
+
+//------------------------------------------------------------------------------
+// - (BOOL) isExistFileWithTheSameName : (id<ASDataObject>) aDestination
+//------------------------------------------------------------------------------
+- (BOOL) isExistFileWithTheSameName : (id<ASDataObject>) aDestination
+{
+    BOOL result = NO;
+    
+    for(int i = 0; i < [arrayToOperate count]; i++)
+    {
+        id<ASDataObject> dataObj = [arrayToOperate objectAtIndex:i];
+        NSString *fileName = [dataObj getItemName];
+        ASFileEx *file = [[ASFileEx alloc] initWithName:fileName 
+                                                    And:aDestination];
+        if([file  isExist])
+        {
+            result = YES;
+        }
+        [file release];
+    }
+    
+    return result;
+}
+
+//------------------------------------------------------------------------------
+// - (void) doPaste// : (id<ASDataObject>) aDes
+//------------------------------------------------------------------------------
+- (void) doPaste// : (id<ASDataObject>) aDes
+{
+
+    ASDataObjectManager* dataManager=[ASDataObjectManager getDataManagerSingleObject];
+    [dataManager pasteFromClipBoard:destinationDirectory];
+    //[destinationDirectory release];
+    destinationDirectory = nil;
+    [[ASDataObjectManager getDataManagerSingleObject] clearClipBoard];
+//    if(HUD)
+//    {
+//        [HUD removeFromSuperview];
+//        [HUD release];
+//        HUD = nil;
+//    }
+    [self.navigationController popToViewController:root 
+                                          animated:YES];    
+}
+
+//------------------------------------------------------------------------------
+// - (void) rootUsed
+//------------------------------------------------------------------------------
+- (void) rootUsed
+{
+    
+    BOOL isSame = [self isExistFileWithTheSameName:currentItem];
+    
+    destinationDirectory = [currentItem retain];
+    
+    if(NO == isSame)
+    {
+        [self doPaste];
+    }
+    else
+    {
+        [self showAlertWarning];
+    }
+    
+    [[ASDataObjectManager getDataManagerSingleObject] clearClipBoard];
+}
+
+//------------------------------------------------------------------------------
+// - (void) addRootButton
+//------------------------------------------------------------------------------
+- (void) addRootButton
+{
+	UIBarButtonItem *rootButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle:declare.fileOperateRoot
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                   action:@selector(showWithLabel:)];
+    
+	self.navigationItem.leftBarButtonItem = rootButton;
+
+	[rootButton release];
+}
+
+//------------------------------------------------------------------------------
+// - (void)viewDidLoad 
+//------------------------------------------------------------------------------
+- (void)viewDidLoad 
+{
+ 
+	declare = [ASDeclare singletonASDeclare];
+	[self addCancelButton];
+    
+	if ([[currentItem getItemName] isEqualToString:@"/"]) 
+    {
+		[self addRootButton];
+	}
+    
+    [tableViewDirectory setRowHeight:50.0];
+	[tableViewDirectory setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+	[tableViewDirectory setIndicatorStyle:UIScrollViewIndicatorStyleWhite];
+    
+    imgManager = [[HJObjManager alloc] init];
+    NSString* cacheDirectory = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/imgcache/imgtable/"] ;
+	HJMOFileCache* fileCache = [[[HJMOFileCache alloc] initWithRootPath:cacheDirectory] autorelease];
+	imgManager.fileCache = fileCache;
+
+    [super viewDidLoad];
+}
+
+//------------------------------------------------------------------------------
+// - (void) viewWillAppear:(BOOL)animated
+//------------------------------------------------------------------------------
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+	self.view.frame = CGRectMake(0, 480, 320, 480);
+	
+	CGRect frame = CGRectMake(0, 0, 320, 480);
+	[self MoveView:self.view To:frame During:0.5];
+    [self searchDiretorys];
+	[self.tableViewDirectory reloadData];
+
+	[self.navigationController setToolbarHidden:YES];
+}
+
+//------------------------------------------------------------------------------
+// - (void)didReceiveMemoryWarning
+//------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning 
+{
+    [super didReceiveMemoryWarning];
+}
+
+//------------------------------------------------------------------------------
+// - (void)viewDidUnload
+//------------------------------------------------------------------------------
+- (void)viewDidUnload 
+{
+    imgManager = nil;
+    [super viewDidUnload];
+}
+
+//------------------------------------------------------------------------------
+// - (void)dealloc 
+//------------------------------------------------------------------------------
+- (void)dealloc 
+{
+    [destinationDirectory release];
+    [currentItem release];
+    [arrayToOperate release];
+    [arrayDirectory release];
+    [tableViewDirectory release];
+    [indexPathOfSelected release];
+    [imgManager release];
+
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark TableView Delegate Mehod
+//------------------------------------------------------------------------------
+// - (NSInteger)tableView:(UITableView *)tableView 
+//  numberOfRowsInSection:(NSInteger) section
+//------------------------------------------------------------------------------
+- (NSInteger) tableView : (UITableView *) tableView
+  numberOfRowsInSection : (NSInteger) section
+{
+	return [arrayDirectory count];
+}
+
+//------------------------------------------------------------------------------
+// - (UIButton *) selectedButtonForCell
+//------------------------------------------------------------------------------
+- (UIButton *) selectedButtonForCell
+{
+	UIButton *seletButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	seletButton.backgroundColor = [UIColor clearColor];
+	seletButton.frame = CGRectMake(220, 5, 60, 30);
+	[seletButton setImage:[UIImage imageNamed:@"select.png"] 
+                 forState:UIControlStateNormal];
+    
+	[seletButton addTarget:self 
+                    action:@selector(showWaitingWithLabel:event:) 
+          forControlEvents:UIControlEventTouchUpInside];
+    
+    return seletButton;
+}
+
+//------------------------------------------------------------------------------
+// - (UITableViewCell*)tableView:(UITableView*)tableView
+//         cellForRowAtIndexPath:(NSIndexPath*)indexPath
+//------------------------------------------------------------------------------
+-(UITableViewCell*)tableView:(UITableView*)tableView
+	   cellForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+	static NSString* docCellIdentifier = @"docCellIdecntifier";
+	
+	
+	ASTableViewCell *cell = (ASTableViewCell*)[tableView 
+        dequeueReusableCellWithIdentifier:docCellIdentifier];
+	
+	if(cell == nil)
+    {
+		cell = [[[ASTableViewCell alloc] 
+                 initWithStyle:UITableViewCellStyleSubtitle
+                 reuseIdentifier:docCellIdentifier] 
+                autorelease];
+    }
+	
+	NSUInteger row = [indexPath row];
+    
+    id<ASDataObject> dataObj = [arrayDirectory objectAtIndex:row];
+    [cell confirmCellInfo: dataObj];
+    
+    [imgManager performSelectorOnMainThread:@selector(manage:) 
+                                 withObject:cell.iconView
+                              waitUntilDone:YES];
+	
+    /*
+    //set cell textLabel and detailTextlabel
+	cell.textLabel.text = [dataObj getItemName];
+    cell.textLabel.textColor = [UIColor blackColor];
+	
+	cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.detailTextLabel.alpha = 0.60f;
+	cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
+	
+    //set cell accessory type
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	
+	cell.imageView.image = [UIImage imageNamed:@"icon_folder.png"];
+    
+    ASDirectoryEx *folder = (ASDirectoryEx *)dataObj;
+	int count = [[folder getFileList:NO] count];
+    NSDictionary *folderAttr = [dataObj getItemAttr];
+	if(count > 1)
+    {
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%15d files",
+                                     [self  getCreationDate:[folderAttr objectForKey:NSFileCreationDate]],
+                                     count];
+				
+	}
+    else 
+    {
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%15d file",
+                                     [self getCreationDate:[folderAttr objectForKey:NSFileCreationDate]],
+                                     count];
+				
+	}
+     */
+
+    //add selected button
+    [cell.contentView addSubview:[self selectedButtonForCell]];
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+	return cell;
+}
+
+//------------------------------------------------------------------------------
+// - (IBAction)showWaitingWithLabel:(id)sender event:(id)event
+//------------------------------------------------------------------------------
+- (IBAction)showWaitingWithLabel:(id)sender event:(id)event
+{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch 
+                                    locationInView:tableViewDirectory];
+	self.indexPathOfSelected = [tableViewDirectory 
+                              indexPathForRowAtPoint: currentTouchPosition];
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+    HUD.delegate = self;
+//    HUD.labelText = KWait;
+    
+    [HUD showWhileExecuting:@selector(selectButtonTapped:event:) onTarget:self withObject:nil animated:YES];
+
+}
+
+//------------------------------------------------------------------------------
+// - (void) selectButtonTapped:(id)sender event:(id)event
+//------------------------------------------------------------------------------
+- (void) selectButtonTapped:(id)sender event:(id)event
+{
+	isSelectButonTapped = YES;
+
+	if (indexPathOfSelected != nil)
+	{
+		[self tableView:self.tableViewDirectory 
+              accessoryButtonTappedForRowWithIndexPath:indexPathOfSelected];
+	}
+
+}
+
+//------------------------------------------------------------------------------
+// - (void) nextButtonTapped:(id)sender event:(id)event
+//------------------------------------------------------------------------------
+- (void) nextButtonTapped:(id)sender event:(id)event
+{
+	isSelectButonTapped = NO;
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch 
+                                    locationInView:self.tableViewDirectory];
+	NSIndexPath *indexPath = [self.tableViewDirectory 
+                              indexPathForRowAtPoint: currentTouchPosition];
+	if (indexPath != nil)
+	{
+		[self tableView:self.tableViewDirectory 
+              accessoryButtonTappedForRowWithIndexPath:indexPath];
+	}
+}
+
+//------------------------------------------------------------------------------
+// - (void)tableView:(UITableView *)tableView 
+//didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+//------------------------------------------------------------------------------
+- (void)tableView:(UITableView *)tableView 
+    didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+	NSInteger row = [indexPath row];
+        
+    id<ASDataObject> dataObj = [arrayDirectory objectAtIndex:row];
+    
+    if ([(ASDirectoryEx*)dataObj containDirectory])//if contains files, enter 
+    {
+        ASFileOperateViewController *nextView = 
+        [[ASFileOperateViewController alloc] init];
+        
+        nextView.currentItem = dataObj;
+        nextView.operation = self.operation;
+        nextView.root = self.root;
+        NSMutableArray *tmpArray = [[NSMutableArray alloc]
+                                    initWithArray:self.arrayToOperate];
+        nextView.arrayToOperate = tmpArray;
+        [tmpArray release];
+        NSString *local = kMainDirctory;
+        UIBarButtonItem *backButton = nil;
+        
+        NSString *currentDir = [currentItem getItemName];
+        
+        if ([currentDir isEqualToString:@""]) 
+        { 
+            backButton = [[UIBarButtonItem alloc]
+                          initWithTitle:local
+                          style:UIBarButtonItemStylePlain
+                          target:self
+                          action:nil];
+        }
+        else 
+        {
+            backButton = [[UIBarButtonItem alloc] 
+                          initWithTitle:currentDir
+                          style:UIBarButtonItemStylePlain
+                          target:self
+                          action:nil];
+        }
+        
+        self.navigationItem.backBarButtonItem = backButton;
+        
+        [self.navigationController pushViewController:nextView 
+                                             animated:YES];
+        [nextView release];
+        [backButton release];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] 
+                              initWithTitle:kAlertWarning
+                              message:KNoDirctory
+                              delegate:nil
+                              cancelButtonTitle:KOkIKonw
+                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+//------------------------------------------------------------------------------
+// - (void)tableView:(UITableView *)tableView
+//accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+//------------------------------------------------------------------------------
+- (void)tableView:(UITableView *)tableView 
+        accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+	
+	NSInteger row = [indexPath row];
+
+    id<ASDataObject> dataObj = [arrayDirectory objectAtIndex:row];
+
+    
+	if(isSelectButonTapped)
+    {
+        ASDirectoryEx *destination = [[ASDirectoryEx alloc] initWithName:[dataObj getItemName] And:currentItem];
+        
+        BOOL isSame = [self isExistFileWithTheSameName:destination];
+        
+        destinationDirectory = [destination retain];
+
+        if(NO == isSame)
+        {
+            [self doPaste];
+        }
+        else
+        {
+            [self showAlertWarning];
+        }
+        
+        [destination release];
+	}
+	else
+    {
+        if ([(ASDirectoryEx *)dataObj containDirectory])//if contains files, enter 
+        {
+            ASFileOperateViewController *nextView = 
+                [[ASFileOperateViewController alloc] init];
+            
+            nextView.currentItem = dataObj;
+            nextView.operation = self.operation;
+            nextView.root = self.root;
+            NSMutableArray *tmpArray = [[NSMutableArray alloc]
+                                        initWithArray:self.arrayToOperate];
+            nextView.arrayToOperate = tmpArray;
+            [tmpArray release];
+            NSString *local = kMainDirctory;
+            UIBarButtonItem *backButton = nil;
+            
+            NSString *currentDir = [currentItem getItemName];
+            
+			if ([currentDir isEqualToString:@"/"]) 
+            { 
+                backButton = [[UIBarButtonItem alloc]
+                              initWithTitle:local
+                              style:UIBarButtonItemStylePlain
+                              target:self
+                              action:nil];
+            }
+            else 
+            {
+                backButton = [[UIBarButtonItem alloc] 
+                              initWithTitle:currentDir
+                              style:UIBarButtonItemStylePlain
+                              target:self
+                              action:nil];
+            }
+            
+            self.navigationItem.backBarButtonItem = backButton;
+            
+            [self.navigationController pushViewController:nextView 
+                                                 animated:YES];
+            [nextView release];
+            [backButton release];
+        }
+	}
+
+}
+
+#pragma mark -
+#pragma mark alertView delete
+//------------------------------------------------------------------------------
+//   - (void)alertView:(UIAlertView *)alertView 
+//clickedButtonAtIndex:(NSInteger)buttonIndex
+//------------------------------------------------------------------------------
+- (void)alertView:(UIAlertView *)alertView 
+        clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if(buttonIndex == 0)
+    {
+        [self doPaste];
+	}
+    else if(buttonIndex == 1)
+    {
+		;
+	}
+}
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [HUD removeFromSuperview];
+    [HUD release];
+	HUD = nil;
+}
+
+//------------------------------------------------------------------------------
+// - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//------------------------------------------------------------------------------
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait ||
+            interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown||
+            interfaceOrientation == UIInterfaceOrientationLandscapeRight ||
+            interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+
+@end

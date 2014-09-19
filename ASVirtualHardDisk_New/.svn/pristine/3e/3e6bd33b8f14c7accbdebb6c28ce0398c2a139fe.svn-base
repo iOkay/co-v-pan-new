@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>arrowImage</key>
+	<string>dirbtn1.png</string>
+	<key>backgroundImage</key>
+	<string>background1.png</string>
+	<key>item</key>
+	<array>
+		<string>Email</string>
+		<string>Open In</string>
+		<string>Print</string>
+		<string>Delete</string>
+	</array>
+	<key>itemIcon</key>
+	<array>
+		<string>scan_email.png</string>
+		<string>scan_openIn.png</string>
+		<string>scan_print.png</string>
+		<string>scan_delete.png</string>
+	</array>
+	<key>selectors</key>
+	<dict>
+		<key>Email</key>
+		<string>emailPressed</string>
+		<key>Open In</key>
+		<string>openInPressed</string>
+		<key>Print</key>
+		<string>printPressed</string>
+		<key>Delete</key>
+		<string>deletePressed</string>
+	</dict>
+</dict>
+</plist>

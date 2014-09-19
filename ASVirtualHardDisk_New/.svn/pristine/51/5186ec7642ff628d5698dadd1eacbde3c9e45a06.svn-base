@@ -1,0 +1,168 @@
+//
+//  ASSortMenu.m
+//  ASVirtualHardDisk
+//
+//  Created by Liu Dong on 11-12-12.
+//  Copyright 2011 AlphaStudio. All rights reserved.
+//
+
+#import <Foundation/NSNotification.h>
+#import <QuartzCore/QuartzCore.h>
+
+#import "ASImageResize.h"
+#import "ASSortMenu.h"
+
+@implementation ASSortMenu
+@synthesize sortType;
+@synthesize sortFlag;
+
+- (id) initWithPoint:(CGPoint)menuPoint 
+       andArrowPoint:(CGPoint)arrowPoint 
+       andDataSource:(id<ASMenuDataSource>)data
+{
+    //dataSource = data;
+    self = [super initWithPoint:menuPoint andArrowPoint:arrowPoint andDataSource:data];
+	if (self)
+	{
+		sortType = [data getSortType];
+		sortFlag = [data getSortFlag];
+    }
+    /*UIImage *backgroundImage = [dataSource backgroundForMenu:self];
+    UIImage *arrowImage = [dataSource arrowImageForMenu:self];
+    
+    //set menu data source
+    item = [dataSource itemsForMenu:self];
+    itemIcon = [dataSource iconsForMenu:self];
+    
+    //set frame for menu
+    CGRect menuFrame = CGRectMake(menuPoint.x-10,
+                                  menuPoint.y-10,
+                                  backgroundImage.size.width/2,
+                                  backgroundImage.size.height/2-6);
+    
+    self = [super initWithFrame:menuFrame];
+    if(self)
+    {
+        //set background image
+        [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+		
+        //add a table view to menu
+        menuView = [[UITableView alloc] 
+                    initWithFrame:CGRectMake(11.0f,
+                                             15.0f, 
+                                             self.bounds.size.width-22.0f, 
+                                             self.bounds.size.height-20.0f) 
+                    style:UITableViewStylePlain];
+        
+        menuView.rowHeight = 30.0f;
+		menuView.delegate = self;
+		menuView.dataSource = self;
+		menuView.backgroundColor = [UIColor clearColor];
+		menuView.separatorColor = [UIColor clearColor];
+        menuView.scrollEnabled = NO;
+		[self addSubview:menuView];
+		[menuView release];
+        
+        //set arrow view
+        arrowView = [[UIImageView alloc] initWithImage:arrowImage];
+        CGRect arrowFrame = CGRectMake(arrowPoint.x+20,
+                                       arrowPoint.y+5,
+                                       arrowImage.size.width, 
+                                       arrowImage.size.height);
+        arrowView.frame = arrowFrame;
+        [self addSubview:arrowView];
+        [arrowView release];
+    }*/
+    
+    return self;
+}
+
+#pragma mark -
+#pragma mark Table View Delegate Method
+
+- (UITableViewCell *)tableView:(UITableView *)tableView 
+		 cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) 
+    {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                       reuseIdentifier:CellIdentifier] autorelease];
+		cell.backgroundColor = [UIColor clearColor];
+        
+        UIView *selectedView = [[UIView alloc] initWithFrame:cell.frame];
+        //UIImage *selectimage = [UIImage imageWithImage:[UIImage imageNamed:@"cell_sort.png"]
+        //                                scaledToSize:CGSizeMake(25.0f, 25.0f)];
+		selectedView.backgroundColor = [UIColor darkGrayColor];
+        selectedView.layer.cornerRadius = 8.0f;
+        selectedView.layer.masksToBounds = YES;
+        selectedView.layer.borderWidth = 10.0f;
+        selectedView.layer.borderColor = [[UIColor clearColor] CGColor];
+		cell.selectedBackgroundView = selectedView;//.backgroundColor = [UIColor clearColor];
+		[selectedView release];
+        
+        UILabel *textLabel = [[UILabel alloc] initWithFrame: CGRectMake(40, 0, 200, 30)];
+        textLabel.backgroundColor = cell.backgroundColor;
+        textLabel.tag = 2;
+        [cell.contentView addSubview: textLabel];
+        [textLabel release];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame: CGRectMake(3, 3, 25, 25)];
+        imageView.tag = 1;
+        [cell.contentView addSubview: imageView];
+        [imageView release];
+    }
+    
+    // Configure the cell...
+	int row = [indexPath row];
+
+	UILabel *cellLabel = (UILabel*)[cell.contentView viewWithTag: 2];
+	cellLabel.text = [item objectAtIndex:[indexPath row]];
+    cellLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+	cellLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.text = [item objectAtIndex: [indexPath row]];
+    cell.textLabel.hidden = YES;
+    
+    UIImage *image = [UIImage imageNamed:[itemIcon objectAtIndex:[indexPath row]]];
+    UIImageView *cellImageView = (UIImageView*)[cell.contentView viewWithTag: 1];
+    cellImageView.image = image;
+	if (row == sortType || row == sortFlag) 
+	{
+		UIImage *sImage = [UIImage imageNamed:@"selected.png"];
+		UIImageView *view = [[UIImageView alloc] initWithImage:sImage];
+		cell.accessoryView = view;
+		[view release];
+		cell.accessoryView.frame = CGRectMake(0, 0, 20, 20);
+	}
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView 
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self removeFromSuperview];
+	int row = [indexPath row];
+	if (row < 4) 
+	{
+		if (row != sortType) 
+		{
+			[dataSource resignSortType:row andFlag:sortFlag];
+			[delegate beginSortWithType:row+1 andFlag:(4 == sortFlag)];
+			NSString *noticeName = [NSString stringWithFormat:@"sortType%d",row];
+			[[NSNotificationCenter defaultCenter] postNotificationName:noticeName object:nil];
+		}
+	}
+	else 
+	{
+		if (row != sortFlag) 
+		{
+			[dataSource resignSortType:sortType andFlag:row];
+			[delegate beginSortWithType:sortType+1 andFlag:(4 == row)];
+		}
+	}
+	
+}
+
+@end

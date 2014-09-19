@@ -1,0 +1,98 @@
+//------------------------------------------------------------------------------
+// Filename:        ASZipStrategy.m
+// Project:         ASStrategy
+// Author:          wangqiushuang
+// Date:            11-10-23
+// Version:         
+// Copyright 2011 Alpha Studio. All rights reserved. 
+//------------------------------------------------------------------------------
+
+// Quote header files.
+#import "ASDirectoryEx.h"
+#import "ASFileListViewController.h"
+#import "ASNewFileName.h"
+#import "ASTableViewCell.h"
+#import "ASZipEx.h"
+#import "ASZipStrategy.h"
+#import "ASLocalDefine.h"
+
+@implementation ASZipStrategy
+@synthesize zipDataObject;
+
+-(void) execOnState:(ASTableViewCellState)state 
+   inViewController:(UIViewController *)aViewController 
+	 withDataObject:(id<ASDataObject>)dataObject
+{
+    viewController = (ASFileListViewController*)aViewController;
+    NSIndexPath *indexPath = [viewController indexPath];
+    cell = (ASTableViewCell *)[[viewController documentTableView] cellForRowAtIndexPath:indexPath];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
+	if(Selected == state)
+	{
+
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"uncompress.png"] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor clearColor];
+        button.frame = CGRectMake(0, 0, 29, 29);
+        [button addTarget:self action:@selector(showWaitingView:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = button;
+		self.zipDataObject = dataObject;
+	}
+	else 
+    {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		[button addTarget:viewController
+                  action:@selector(buttonTapped:event:) 
+		forControlEvents:UIControlEventTouchUpInside];
+        
+		cell.accessoryView = button;
+        cell.selected = NO;
+		self.zipDataObject = nil;
+	}
+}
+
+- (void) showWaitingView:(id)sender
+{
+    HUD = [[MBProgressHUD alloc] initWithView:viewController.navigationController.view];
+    [viewController.navigationController.view addSubview:HUD];
+    
+    HUD.delegate = self;
+    HUD.labelText = KWait;
+    
+    [HUD showWhileExecuting:@selector(unzipWithObject) onTarget:self withObject:nil animated:YES];
+}
+
+-(void)unzipWithObject
+{
+	//NSLog(@"unzip");
+	NSString *homeDirectory = NSHomeDirectory();
+	NSString *zipfilePath = [[NSString alloc] 
+        initWithFormat:@"%@%@%@",homeDirectory,@"/Documents/",
+        [zipDataObject getFullItemName]];
+	NSString *zipName = [zipfilePath lastPathComponent];
+	NSString *name = [zipName stringByDeletingPathExtension];
+	NSString *directoryPath = [[zipDataObject getFullItemName] stringByDeletingLastPathComponent];
+	ASDirectoryEx *directory = [[ASDirectoryEx alloc] initWithFullPath:directoryPath];
+	NSString *newName = [ASNewFileName nameOfNewFile:name toDirectory:directory];
+	[directory release];
+	NSString *newPath = [[NSString alloc] initWithFormat:@"%@/%@/",[zipfilePath stringByDeletingLastPathComponent],newName];
+	[zipfilePath release];
+	ASZipEx *unzip = [ASZipEx sharedASZipEx];
+	[unzip unZipFile:(ASFileEx *)zipDataObject toPath:newPath];
+    [viewController refreshDocuementsWithoutAnimation];
+	[newPath release];
+}
+
+#pragma mark -
+#pragma mark HUD Delegate Method
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
+    [HUD removeFromSuperview];
+    [HUD release];
+    HUD = nil;
+}
+
+@end

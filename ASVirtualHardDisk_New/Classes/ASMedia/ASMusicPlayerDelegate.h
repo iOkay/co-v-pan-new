@@ -1,0 +1,19 @@
+//------------------------------------------------------------------------------
+// Filename:        ASMusicPlayerDelegate.h
+// Project:         ASVirtualHardDisk
+// Author:          wangqiushuang
+// Date:            11-10-17
+// Version:         
+// Copyright 2011 AlphaStudio. All rights reserved. 
+//------------------------------------------------------------------------------
+// Quote the standard library header files. 
+#import <UIKit/UIKit.h>
+
+
+@protocol ASMusicPlayerDelegate
+
+- (void)changeCurrentTime;
+
+- (void)playToTheEndOfMusic;
+
+@end

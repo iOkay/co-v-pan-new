@@ -1,0 +1,25 @@
+//
+//  ASVerifyView.m
+//  ASVirtualHardDisk
+//
+//  Created by Yunxing.D on 11-8-28.
+//  Copyright 2011 AlphaStudio. All rights reserved.
+//
+
+#import "ASVerifyView.h"
+
+
+@implementation ASVerifyView
+
+- (void)dealloc 
+{
+    [super dealloc];
+}
+
+//------------------------------------------------------------------------------
+// - (IBAcion)textFieldDidEndEditing:(id)sender
+//------------------------------------------------------------------------------
+- (IBAction)textFieldDidEndEditing:(id)sender{
+	[sender resignFirstResponder];
+}
+@end

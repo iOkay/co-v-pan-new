@@ -1,0 +1,34 @@
+//
+//  ASBadgeView.h
+//  Coupon
+//
+//  Created by AMDS on 11-12-18.
+//  Copyright (c) 2011年 Alpha Studio. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#define HEXCOLOR(x) [UIColor colorWithRed:((x>>6)/0xff) green:((x&0x00ff0000)/0x00ff0000) blue:((x&0x0000ff00)/0x0000ff00) alpha:1.000]
+
+@interface ASBadgeView : UIView {
+	NSUInteger     width;
+	NSString       *badgeString;
+	
+	UIFont          *font;
+	UITableViewCell *parent;
+	
+	UIColor *badgeColor;
+	UIColor *badgeColorHighlighted;		
+}
+
+@property (nonatomic, readonly) NSUInteger width;
+@property (nonatomic, retain) NSString *badgeString;
+@property (nonatomic, assign) UITableViewCell *parent;
+@property (nonatomic, assign) BOOL shadowEnabled;
+@property (nonatomic, retain) UIColor *badgeColor;
+@property (nonatomic, retain) UIColor *badgeColorHighlighted;
+
+- (void) drawRoundedRect:(CGRect) rrect inContext:(CGContextRef) context 
+			  withRadius:(CGFloat) radius;
+
+
+@end

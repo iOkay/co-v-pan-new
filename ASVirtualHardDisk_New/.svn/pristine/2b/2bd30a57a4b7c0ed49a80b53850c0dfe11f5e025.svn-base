@@ -1,0 +1,328 @@
+//
+//  ASVirtualHardDiskAppDelegate.m
+//  ASVirtualHardDisk
+//
+//  Created by dai yunxing on 11-8-3.
+//  Modify by dhc on 11-12-07
+//  Copyright 2011  hebeishida. All rights reserved.
+//
+#import "ASVirtualHardDiskAppDelegate.h"
+#import "ASFileStrategyManager.h"
+#import "ASFileStrategy.h"
+#import "ASDirectoryEx.h"
+#import "ASFileType.h"
+#import "ASFileEx.h"
+#import "ASReaderViewController.h"
+#import "ASPictureViewController.h"
+#import "ASMainViewController.h"
+#import "ASServerInfo.h"
+#import "ASSortMenuModel.h"
+
+#define kDefaultDirectoryPlist @"defaultDirectoryList"
+#define kDefaultDirectoryPlistType @"plist"
+#define kHowToUseFileName @"ReadMe.pdf"
+
+@implementation ASVirtualHardDiskAppDelegate
+
+@synthesize window;
+@synthesize navigationController;
+//@synthesize viewController;
+
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if (url != nil && [url isFileURL])
+    {
+        //NSLog(@"%@", url);
+        NSMutableString *tempPath = [[NSMutableString alloc] 
+                                 initWithString:NSHomeDirectory()];
+        [tempPath appendString: @"/Documents/"];
+        NSMutableString *inboxPath = [NSMutableString stringWithString: tempPath];
+        [inboxPath appendString: @"/Inbox/"];
+        [tempPath appendString: [[url path] lastPathComponent]];
+        NSMutableString *noUTF8path = [NSMutableString stringWithString: tempPath];
+        
+        
+        int n = 1;
+        while ([[NSFileManager defaultManager] fileExistsAtPath: noUTF8path])
+        {
+            noUTF8path = [NSMutableString stringWithString: tempPath];
+            NSString *extension = [noUTF8path pathExtension];
+            NSString *newExtension = [NSString stringWithFormat: @"%i.%@", n, extension];
+            [noUTF8path replaceOccurrencesOfString: @"."
+                                        withString: @" "
+                                           options: NSBackwardsSearch
+                                             range: NSMakeRange(0, [noUTF8path length])];
+            [noUTF8path replaceOccurrencesOfString: extension
+                                        withString: newExtension
+                                           options: NSBackwardsSearch
+                                             range: NSMakeRange(0, [noUTF8path length])];
+            ++n;
+        }
+        [tempPath release];
+        NSString *path = [[noUTF8path stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] retain];
+        [[NSFileManager defaultManager] copyItemAtPath: [url path]
+                                                toPath: path
+                                                 error: nil];
+        
+        [[NSFileManager defaultManager] removeItemAtPath: [url path] error: nil];
+        [[NSFileManager defaultManager] removeItemAtPath: inboxPath error: nil];
+        ASFileEx *file = [[ASFileEx alloc] initWithFullPath: path];
+        [path release];
+        
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"FileTypeList.plist"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+            plistPath = [[NSBundle mainBundle] pathForResource:@"FileTypeList" ofType:@"plist"];
+        }
+        
+        
+        NSDictionary *temp=[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        if (!temp) {
+            [temp release];
+            [file release];
+            return NO;
+        }
+        NSDictionary* dict=[temp objectForKey:@"TypeList"];
+        
+        if(nil == [dict objectForKey: [[url path] pathExtension]])
+        {
+            [temp release];
+            [file release];
+            return NO;
+        }
+        else
+        {
+            NSInteger fileType = [[dict objectForKey: [[url path] pathExtension]] intValue];
+            
+            id<ASFileStrategy> strategy = 
+            [[[ASFileStrategyManager sharedASFileStrategyManager] strategis] 
+             objectForKey:[NSNumber numberWithInt: fileType]];
+            
+            [strategy execOnState: 0 
+                 inViewController: self.navigationController.topViewController
+                   withDataObject: file];
+            
+            /*
+            switch (fileType)
+            {
+                case kPDF:
+                {
+                    ASReaderViewController *reader = 
+                    [[ASReaderViewController alloc] init];
+                    reader.file = nil;
+                    [reader loadFile: [url path]];
+                    
+                    [self.navigationController pushViewController: reader animated: NO];
+                    
+                    [reader release];
+                    
+                    break;
+                }
+                case kPNG:
+                {
+                    ASPictureViewController *picture = 
+                    [[ASPictureViewController alloc] init];
+                    picture.pictureToDisplay = nil;
+                    [picture loadFile: [url path]];
+                    
+                    [self.navigationController pushViewController: picture animated: NO];
+                    
+                    [picture release];
+                    
+                    break;
+                }
+                    
+                default:
+                    break;
+            }
+             */
+        }
+        [temp release];
+        [file release];
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+#pragma mark -
+#pragma mark Application lifecycle
+//- (void) configServerInfoFile
+//{
+//    ASServerInfo *server = [[ASServerInfo alloc] init];
+//    
+//    if(NO == [server isExistConfigFile])
+//    {
+//        [server createConfigFile];
+//        [server serverInitial];
+//    }
+//    
+//    [server release];
+//}
+
+- (void) configServerInfo
+{
+    ASServerInfo *serverInfo = [ASServerInfo singletonServer];
+    
+    if(YES == serverInfo.isServerStart)
+    {
+        [serverInfo startFtpServer];
+        [serverInfo startWebServer];
+    }
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {   
+    
+    // Override point for customization after application launch.
+    [self.window addSubview:navigationController.view];
+    
+    [(ASMainViewController*)navigationController.topViewController switchToNext];
+
+    [self.window makeKeyAndVisible];
+    
+//    [self configServerInfoFile];
+    
+    [self configServerInfo];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey: @"hasStartedBefore"])
+    {
+        NSString *directoryPath = 
+            [[NSBundle mainBundle] pathForResource: kDefaultDirectoryPlist 
+                                            ofType: kDefaultDirectoryPlistType];
+        NSDictionary *directoryDict = 
+            [NSDictionary dictionaryWithContentsOfFile: directoryPath];
+        NSArray *directoryArray = [directoryDict objectForKey: @"default"];
+        NSMutableString *path = [[NSMutableString alloc] 
+                                 initWithString:NSHomeDirectory()];
+        [path appendString:@"/Documents/"];
+        
+        for (NSString *directory in directoryArray)
+        {
+            NSString *directoryPath = 
+                [path stringByAppendingPathComponent: directory];
+            [[NSFileManager defaultManager] createDirectoryAtPath: directoryPath 
+                                      withIntermediateDirectories: YES 
+                                                       attributes: nil 
+                                                            error: nil];
+        }
+        
+        NSString *helpFileName = NSLocalizedString(@"howToUseFileName",nil);
+        NSString *helpFilePath = 
+            [[NSBundle mainBundle] pathForResource: helpFileName 
+                                            ofType: nil];
+        [[NSFileManager defaultManager] copyItemAtPath: helpFilePath 
+            toPath: [path stringByAppendingPathComponent: kHowToUseFileName]
+                                                 error: nil];
+        
+        [path release];
+        
+        [[NSUserDefaults standardUserDefaults] setBool: YES 
+                                                forKey: @"hasStartedBefore"];
+    }
+	//set sort type
+	NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+	NSString *directory = [pathArr objectAtIndex:0];
+	NSString *path = [directory stringByAppendingPathComponent:@"selectedCell"];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) 
+	{
+		NSArray *array = [[NSArray alloc] initWithObjects:@"0",@"4",nil];
+		[array writeToFile:path atomically:YES];
+		[array release];
+	}
+    
+	//set the navigation style\
+
+	//self.navigationController.navigationBar.tintColor = [UIColor 
+   //                                                      colorWithRed:0.0f 
+    //                                                     green:100.0/255.0f 
+    //                                                     blue:174.0/255.0f 
+    //                                                     alpha:0.8];
+
+//    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+//	self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    self.navigationController.navigationBar.translucent = NO;
+//    [self.navigationController.navigationBar setFrame:CGRectMake(0, 20, 320, 44)];
+    
+    return YES;
+}
+
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    /*
+     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+     */
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application 
+{
+	ASSortMenuModel *model = [ASSortMenuModel singletonASSortMenuModel];
+	[model saveSortInfo];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"ApplicationDidEnterBackground" object:nil];
+    [[ASServerInfo singletonServer] recordStatusOfServer];
+    /*
+     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+     If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
+     */
+}
+
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    /*
+     Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
+     */
+    [[self.navigationController topViewController] viewWillAppear: NO];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    /*
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
+}
+
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"applicationWillTerminate" object:nil];
+    [[ASServerInfo singletonServer] recordStatusOfServer];
+    /*
+     Called when the application is about to terminate.
+     See also applicationDidEnterBackground:.
+     */
+}
+
+- (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame
+{
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
+//- (void)applicationDidFinishLaunching:(UIApplication *)application{
+//	//[viewController showView];
+//}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    /*
+     Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
+     */
+    NSLog(@"%s",__func__);
+}
+
+
+- (void)dealloc {
+	//[viewController release];
+	[navigationController release];
+    [window release];
+    [super dealloc];
+}
+
+
+@end

@@ -1,0 +1,24 @@
+//
+//  ASRotateMenuModel.h
+//  ASVirtualHardDisk
+//
+//  Created by xieyajie on 11-12-9.
+//  Copyright 2011年 AlphaStudio. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "ASMenuDataSource.h"
+#import "ASMenuDelegate.h"
+
+@interface ASRotateMenuModel : NSObject <ASMenuDataSource>
+{
+ @private
+    UIImage *backgroundImage;
+    UIImage *arrowImage;
+    NSArray *item;
+    NSArray *itemIcon;
+}
+
++ (id)sharedRotateMenuModel;
+
+@end
