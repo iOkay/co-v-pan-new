@@ -1725,7 +1725,7 @@ Failed:;
 	NSMutableString *ms = [[NSMutableString alloc] init];
 	[ms appendString: [NSString stringWithFormat:@"<AsyncSocket %p", self]];
 	[ms appendString: [NSString stringWithFormat:@" local %@ remote %@ ", selfstr, peerstr]];
-	[ms appendString: [NSString stringWithFormat:@"has queued %d reads %d writes, ", [theReadQueue count], [theWriteQueue count] ]];
+	[ms appendString: [NSString stringWithFormat:@"has queued %lu reads %lu writes, ", (unsigned long)[theReadQueue count], (unsigned long)[theWriteQueue count] ]];
 	
 	if (theCurrentRead == nil)
 		[ms appendString: @"no current read, "];
@@ -1738,8 +1738,8 @@ Failed:;
 		else
 			percentDone = 100;
 		
-		[ms appendString: [NSString stringWithFormat:@"currently read %u bytes (%d%% done), ",
-						   [theCurrentRead->buffer length],
+		[ms appendString: [NSString stringWithFormat:@"currently read %lu bytes (%d%% done), ",
+						   (unsigned long)[theCurrentRead->buffer length],
 						   theCurrentRead->bytesDone ? percentDone : 0]];
 	}
 	

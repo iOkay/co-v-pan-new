@@ -113,16 +113,16 @@ static const CGFloat kButtonWith = 30.0f;
 	switch ([model getSortType]) 
 	{
 		case 0:
-			picName = [NSString stringWithString:@"byName.png"];
+			picName = @"byName.png";
 			break;
 		case 1:
-			picName = [NSString stringWithString:@"byDate.png"];
+			picName = @"byDate.png";
 			break;
 		case 2:
-			picName = [NSString stringWithString:@"byKind.png"];
+			picName = @"byKind.png";
 			break;
 		case 3:
-			picName = [NSString stringWithString:@"bySize.png"];
+			picName = @"bySize.png";
 			break;
 		default:
 			break;
@@ -381,19 +381,19 @@ static const CGFloat kButtonWith = 30.0f;
 	NSString *imgName = nil;
 	if ([aNote.name isEqualToString:@"sortType0"]) 
 	{
-		imgName = [NSString stringWithString:@"byName.png"];
+		imgName = @"byName.png";
 	}
 	if ([aNote.name isEqualToString:@"sortType1"]) 
 	{
-		imgName = [NSString stringWithString:@"byDate.png"];
+		imgName = @"byDate.png";
 	}
 	if ([aNote.name isEqualToString:@"sortType2"]) 
 	{
-		imgName = [NSString stringWithString:@"byKind.png"];
+		imgName = @"byKind.png";
 	}
 	if ([aNote.name isEqualToString:@"sortType3"]) 
 	{
-		imgName = [NSString stringWithString:@"bySize.png"];
+		imgName = @"bySize.png";
 	}
 	
     UIBarButtonItem *sortItem = 

@@ -122,7 +122,6 @@
 		43D12084147DDB0300DC2AC1 /* ASFileSearchServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1207C147DDB0300DC2AC1 /* ASFileSearchServlet.m */; };
 		43D12085147DDB0300DC2AC1 /* ASUploadServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1207E147DDB0300DC2AC1 /* ASUploadServlet.m */; };
 		43D12086147DDB0300DC2AC1 /* ASWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D12080147DDB0300DC2AC1 /* ASWebServer.m */; };
-		43D12088147DDCC600DC2AC1 /* libxml2.2.7.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D12087147DDCC600DC2AC1 /* libxml2.2.7.3.dylib */; };
 		43D1208B147DDCF700DC2AC1 /* ASCreateFolderServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1208A147DDCF700DC2AC1 /* ASCreateFolderServlet.m */; };
 		43D3828814870EF300B9CAB4 /* ASDownLoadServlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D3828714870EF200B9CAB4 /* ASDownLoadServlet.m */; };
 		43D5695B149F1EFF00E5DB66 /* ASBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D5695A149F1EFF00E5DB66 /* ASBadgeView.m */; };
@@ -139,6 +138,7 @@
 		43F8D38F150998FC00DC29F3 /* connecting.html in Resources */ = {isa = PBXBuildFile; fileRef = 43F8D38D150998FB00DC29F3 /* connecting.html */; };
 		43FB5405150F4931008358A5 /* ccw.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FB5403150F4931008358A5 /* ccw.png */; };
 		43FB5406150F4931008358A5 /* cw.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FB5404150F4931008358A5 /* cw.png */; };
+		445A862819CBC4CD004A9CC9 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 445A862719CBC4CD004A9CC9 /* libxml2.2.dylib */; };
 		4600113F14729902009D8AA5 /* PrintPhotoPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4600113E14729902009D8AA5 /* PrintPhotoPageRenderer.m */; };
 		4600114614729FB0009D8AA5 /* ASCanNotOpenStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4600114214729FAE009D8AA5 /* ASCanNotOpenStrategy.m */; };
 		4600114714729FB0009D8AA5 /* ASCanNotOpenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4600114414729FAF009D8AA5 /* ASCanNotOpenViewController.m */; };
@@ -569,7 +569,6 @@
 		43D1207E147DDB0300DC2AC1 /* ASUploadServlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUploadServlet.m; sourceTree = "<group>"; };
 		43D1207F147DDB0300DC2AC1 /* ASWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWebServer.h; sourceTree = "<group>"; };
 		43D12080147DDB0300DC2AC1 /* ASWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWebServer.m; sourceTree = "<group>"; };
-		43D12087147DDCC600DC2AC1 /* libxml2.2.7.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.7.3.dylib; path = usr/lib/libxml2.2.7.3.dylib; sourceTree = SDKROOT; };
 		43D12089147DDCF700DC2AC1 /* ASCreateFolderServlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCreateFolderServlet.h; sourceTree = "<group>"; };
 		43D1208A147DDCF700DC2AC1 /* ASCreateFolderServlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCreateFolderServlet.m; sourceTree = "<group>"; };
 		43D3828614870EF200B9CAB4 /* ASDownLoadServlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASDownLoadServlet.h; path = Classes/ASWebServer/ASServlet/ASDownLoadServlet.h; sourceTree = SOURCE_ROOT; };
@@ -589,6 +588,7 @@
 		43F8D38D150998FB00DC29F3 /* connecting.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = connecting.html; sourceTree = "<group>"; };
 		43FB5403150F4931008358A5 /* ccw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ccw.png; sourceTree = "<group>"; };
 		43FB5404150F4931008358A5 /* cw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cw.png; sourceTree = "<group>"; };
+		445A862719CBC4CD004A9CC9 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		4600113C147298FD009D8AA5 /* PrintPhotoPageRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintPhotoPageRenderer.h; sourceTree = "<group>"; };
 		4600113E14729902009D8AA5 /* PrintPhotoPageRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintPhotoPageRenderer.m; sourceTree = "<group>"; };
 		4600114114729FAE009D8AA5 /* ASCanNotOpenStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASCanNotOpenStrategy.h; path = Classes/ASStrategy/ASStrategys/ASCanNotOpenStrategy.h; sourceTree = SOURCE_ROOT; };
@@ -921,7 +921,6 @@
 		C64D70751525F06D00AC71AF /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C64DA181152DDBB10090DEEB /* BTAccept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTAccept.png; sourceTree = "<group>"; };
 		C64DA184152DDBC90090DEEB /* BTDecline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTDecline.png; sourceTree = "<group>"; };
-		C6650A311525BBFA00AA6475 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		C6696FBA152B1F0D001DD8E0 /* ASBluetoothDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBluetoothDataHandler.h; sourceTree = "<group>"; };
 		C6696FBB152B1F0D001DD8E0 /* ASBluetoothDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBluetoothDataHandler.m; sourceTree = "<group>"; };
 		C6BD8E9D1434884F00C303B6 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = Classes/ASZip/ZipArchive.h; sourceTree = SOURCE_ROOT; };
@@ -933,13 +932,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				445A862819CBC4CD004A9CC9 /* libxml2.2.dylib in Frameworks */,
 				431A29B3154FD38E00CD4B1C /* libz.1.2.5.dylib in Frameworks */,
 				C64D70761525F06D00AC71AF /* GameKit.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				ACFAC251147F93F200AB8B2B /* libiconv.dylib in Frameworks */,
 				ACFAC24F147F93D200AB8B2B /* CoreMedia.framework in Frameworks */,
 				ACFAC24D147F93C800AB8B2B /* CoreVideo.framework in Frameworks */,
-				43D12088147DDCC600DC2AC1 /* libxml2.2.7.3.dylib in Frameworks */,
 				B03B2DA01476564400E8DEBF /* AudioToolbox.framework in Frameworks */,
 				B03B2D9E1476563E00E8DEBF /* AVFoundation.framework in Frameworks */,
 				B03B2D9C1476561C00E8DEBF /* QuartzCore.framework in Frameworks */,
@@ -998,7 +997,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				431A29B2154FD38E00CD4B1C /* libz.1.2.5.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1043,9 +1041,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C6650A311525BBFA00AA6475 /* libz.1.2.3.dylib */,
+				445A862719CBC4CD004A9CC9 /* libxml2.2.dylib */,
+				431A29B2154FD38E00CD4B1C /* libz.1.2.5.dylib */,
 				C64D70751525F06D00AC71AF /* GameKit.framework */,
-				43D12087147DDCC600DC2AC1 /* libxml2.2.7.3.dylib */,
 				ACFAC250147F93F200AB8B2B /* libiconv.dylib */,
 				ACFAC24E147F93D200AB8B2B /* CoreMedia.framework */,
 				ACFAC24C147F93C800AB8B2B /* CoreVideo.framework */,
